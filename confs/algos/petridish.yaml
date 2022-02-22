@@ -20,8 +20,8 @@ nas:
       num_edges_to_sample: 2 # number of edges each node will take inputs from
       aux_tower_stride: 3
       model_stems:
-        ops: ['stem_conv3x3_s4', 'stem_conv3x3_s4']
-        init_node_ch: 48 # num of input/output channels for nodes in 1st cell
+        ops: ['stem_conv3x3_s2', 'stem_conv3x3_s2']
+        init_node_ch: 16 # num of input/output channels for nodes in 1st cell
         stem_multiplier: 1 # output channels multiplier for the stem
       cell:
         n_nodes: 5 # number of nodes in a cell if template desc is not provided
@@ -53,59 +53,63 @@ nas:
       max_madd: 200000000 # if any parent model reaches this many multiply-additions then the search is terminated or it reaches maximum number of parent pool size
       max_hull_points: 60 # if the pool of parent models reaches this size then search is terminated or if it reaches max multiply-adds
       checkpoints_foldername: '$expdir/petridish_search_checkpoints'
-    search_iters: 4 
+    # search_iters: 4 # not used 
     pareto:
-      max_cells: 8
+      max_cells: 5
       max_reductions: 3
       max_nodes: 3
       enabled: True # if false then there will only be one seed model. if true a number of seed models with different number of cells, reductions and nodes will be used to initialize the search. this provides more coverage of the frontier.
     model_desc:
-      n_cells: 3
-      n_reductions: 2
+      n_cells: 3 # also used as min cells to get combinations for seeding pareto
+      n_reductions: 1 # also used as min n_reductions to get combinations for seeding pareto
       num_edges_to_sample: 2 # number of edges each node will take inputs from
       cell:
-        n_nodes: 1
+        n_nodes: 1 # also used as min nodes to get combinations for seeding pareto
         cell_post_op: 'proj_channels'
+      model_stems:
+        ops: ['stem_conv3x3_s2', 'stem_conv3x3_s2']
+        stem_multiplier: 1 # output channels multiplier for the stem
+        init_node_ch: 16 # num of input/output channels for nodes in 1st cell
     seed_train:
       trainer:
-        epochs: 80 # number of epochs model will be trained before search
+        epochs: 5 # number of epochs model will be trained before search
         optimizer:
           lr: 0.033
         batch_chunks: 1
         validation:
           batch_chunks: 1
       loader:
-        cutout: 24
+        cutout: 12
         train_batch: 32
         test_batch: 32
-        img_size: 64
+        img_size: 32
         aug: ''
         # dataset:
         #  max_batches: 32
     post_train:
       trainer:
-        epochs: 80 # number of epochs model will be trained after search
+        epochs: 5 # number of epochs model will be trained after search
         optimizer:
           lr: 0.033
       loader:
         train_batch: 32
-        cutout: 24
+        cutout: 12
         test_batch: 32
-        img_size: 64
+        img_size: 32
         aug: ''
         # dataset:
         #   max_batches: 32
     trainer:
       l1_alphas:  0.001   # as per paper
-      epochs: 80 # number of epochs model will be trained during search
+      epochs: 5 # number of epochs model will be trained during search
       optimizer:
           lr: 0.033
     loader:
       train_batch: 32
       val_ratio: 0.2 #split portion for train set, 0 to 1
-      cutout: 24
+      cutout: 12
       test_batch: 32
-      img_size: 64
+      img_size: 32
       aug: ''
       # dataset:
       #   max_batches: 32

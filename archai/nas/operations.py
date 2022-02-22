@@ -42,6 +42,8 @@ _ops_factory:Dict[str, Callable] = {
                             DilConv(op_desc, 3, op_desc.params['stride'], 2, 2, affine),
     'dil_conv_5x5':     lambda op_desc, arch_params, affine:
                             DilConv(op_desc, 5, op_desc.params['stride'], 4, 2, affine),
+    'mbconv_r6_s1':     lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=1, expansion_ratio=6, affine=affine),
     'none':             lambda op_desc, arch_params, affine:
                             Zero(op_desc),
     'identity':         lambda op_desc, arch_params, affine:
@@ -281,6 +283,34 @@ class DilConv(Op):
     def forward(self, input):
         return self.op(input)
 
+class MBConv(Op):
+    """ Inverted residual block, informally known as MBConv
+    as utilized in MobileNetV2 paper by Sandler et al, 2018.
+    See Table 1 in the paper for details. 
+    
+    1x1 conv2d - Relu6 - 3x3 depthwise separable - Relu6 - 1x1 conv2d (no non-linearity)    
+    """
+
+    def __init__(self, op_desc:OpDesc, stride:int, expansion_ratio:int, affine:bool):
+        super(MBConv, self).__init__()
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+        ch_intermediate = ch_in * expansion_ratio
+
+        self.op = nn.Sequential(
+            nn.Conv2d(ch_in, ch_intermediate, kernel_size=1, padding=0, bias=affine),
+            nn.ReLU6(),
+            nn.Conv2d(ch_intermediate, ch_intermediate, kernel_size=3, 
+                    groups=ch_intermediate, padding=2, stride=stride, bias=affine),
+            nn.ReLU6(),
+            nn.Conv2d(ch_intermediate, ch_out, kernel_size=1, padding=0, bias=affine),
+            nn.BatchNorm2d(ch_out, affine=affine)
+        )
+
+    @overrides
+    def forward(self, input):
+        return self.op(input)    
 
 class SepConv(Op):
     """ Depthwise separable conv

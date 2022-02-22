@@ -80,6 +80,7 @@ class PetridishOp(Op):
         'sep_conv_5x5',
         'dil_conv_3x3',
         'dil_conv_5x5',
+        'mbconv_r6_s1',
         'none'  # this must be at the end so top1 doesn't chose it
     ]
 
