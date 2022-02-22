@@ -56,6 +56,8 @@ _ops_factory:Dict[str, Callable] = {
                             ReLUConvBN(op_desc, 1, 1, 0, affine),
     'stem_conv3x3':       lambda op_desc, arch_params, affine:
                             StemConv3x3(op_desc, affine),
+    'stem_conv3x3_s2':   lambda op_desc, arch_params, affine:
+                            StemConv3x3S2(op_desc, affine),
     'stem_conv3x3Relu':       lambda op_desc, arch_params, affine:
                             StemConv3x3Relu(op_desc, affine),
     'stem_conv3x3_s4':   lambda op_desc, arch_params, affine:
@@ -392,6 +394,29 @@ class StemConv3x3(StemBase):
             # batchnorm is added after each layer. Bias is turned off due to
             # BN in conv layer.
             nn.Conv2d(ch_in, ch_out, 3, padding=1, bias=False),
+            nn.BatchNorm2d(ch_out, affine=affine)
+        )
+
+    @overrides
+    def forward(self, input):
+        return self._op(input)
+
+    @overrides
+    def can_drop_path(self)->bool:
+        return False
+
+class StemConv3x3S2(StemBase):
+    def __init__(self, op_desc:OpDesc, affine:bool)->None:
+        super().__init__(2)
+
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+
+        self._op = nn.Sequential( # 3 => 48
+            # batchnorm is added after each layer. Bias is turned off due to
+            # BN in conv layer.
+            nn.Conv2d(ch_in, ch_out, 3, padding=1, stride=2, bias=False),
             nn.BatchNorm2d(ch_out, affine=affine)
         )
 
