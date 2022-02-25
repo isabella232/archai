@@ -72,7 +72,7 @@ nas:
         init_node_ch: 16 # num of input/output channels for nodes in 1st cell
     seed_train:
       trainer:
-        epochs: 5 # number of epochs model will be trained before search
+        epochs: 80 # number of epochs model will be trained before search
         optimizer:
           lr: 0.033
         batch_chunks: 1
@@ -88,7 +88,7 @@ nas:
         #  max_batches: 32
     post_train:
       trainer:
-        epochs: 5 # number of epochs model will be trained after search
+        epochs: 80 # number of epochs model will be trained after search
         optimizer:
           lr: 0.033
       loader:
@@ -101,7 +101,7 @@ nas:
         #   max_batches: 32
     trainer:
       l1_alphas:  0.001   # as per paper
-      epochs: 5 # number of epochs model will be trained during search
+      epochs: 80 # number of epochs model will be trained during search
       optimizer:
           lr: 0.033
     loader:
