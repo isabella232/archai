@@ -53,7 +53,7 @@ nas:
       max_madd: 15000000 # if any parent model reaches this many multiply-additions then the search is terminated or it reaches maximum number of parent pool size
       max_hull_points: 60 # if the pool of parent models reaches this size then search is terminated or if it reaches max multiply-adds
       checkpoints_foldername: '$expdir/petridish_search_checkpoints'
-    search_iters: 4 
+    # search_iters: 4 # not used 
     pareto:
       max_cells: 5
       max_reductions: 3
@@ -64,7 +64,7 @@ nas:
       n_reductions: 1
       num_edges_to_sample: 2 # number of edges each node will take inputs from
       cell:
-        n_nodes: 1
+        n_nodes: 1 # also used as min nodes to get combinations for seeding pareto
         cell_post_op: 'proj_channels'
       model_stems:
         ops: ['stem_conv3x3_s2', 'stem_conv3x3_s2']
@@ -72,7 +72,7 @@ nas:
         init_node_ch: 16 # num of input/output channels for nodes in 1st cell
     seed_train:
       trainer:
-        epochs: 80 # number of epochs model will be trained before search
+        epochs: 5 # number of epochs model will be trained before search
         optimizer:
           lr: 0.033
         batch_chunks: 1
@@ -88,7 +88,7 @@ nas:
         #  max_batches: 32
     post_train:
       trainer:
-        epochs: 80 # number of epochs model will be trained after search
+        epochs: 5 # number of epochs model will be trained after search
         optimizer:
           lr: 0.033
       loader:
@@ -101,7 +101,7 @@ nas:
         #   max_batches: 32
     trainer:
       l1_alphas:  0.001   # as per paper
-      epochs: 80 # number of epochs model will be trained during search
+      epochs: 5 # number of epochs model will be trained during search
       optimizer:
           lr: 0.033
     loader:

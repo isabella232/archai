@@ -91,7 +91,7 @@
             "request": "launch",
             "program": "${cwd}/scripts/main.py",
             "console": "integratedTerminal",
-            "args": ["--full", "--algos", "petridish", "--datasets", "aircraft_bing"],
+            "args": ["--full", "--algos", "petridish", "--datasets", "cifar10"],
             "justMyCode": false
         },
         {
