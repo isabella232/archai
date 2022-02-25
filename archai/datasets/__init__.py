@@ -18,3 +18,4 @@ from .providers.aircraft_provider import AircraftProvider
 from .providers.aircraft_bing_provider import AircraftBingProvider
 from .providers.stanfordcars_provider import StanfordCarsProvider
 from .providers.stanfordcars_bing_provider import StanfordCarsBingProvider
+from .providers.person_coco_provider import PersonCocoProvider

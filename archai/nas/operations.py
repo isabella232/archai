@@ -42,6 +42,14 @@ _ops_factory:Dict[str, Callable] = {
                             DilConv(op_desc, 3, op_desc.params['stride'], 2, 2, affine),
     'dil_conv_5x5':     lambda op_desc, arch_params, affine:
                             DilConv(op_desc, 5, op_desc.params['stride'], 4, 2, affine),
+    'mbconv_r6_s1':     lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=1, expansion_ratio=6, affine=affine),
+    'mbconv_r3_s1':     lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=1, expansion_ratio=3, affine=affine),
+    'mbconv_r3_s2':     lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=2, expansion_ratio=3, affine=affine),
+    'mbconv_r3':     lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=op_desc.params['stride'], expansion_ratio=3, affine=affine),
     'none':             lambda op_desc, arch_params, affine:
                             Zero(op_desc),
     'identity':         lambda op_desc, arch_params, affine:
@@ -64,6 +72,12 @@ _ops_factory:Dict[str, Callable] = {
                             StemConv3x3S4(op_desc, affine),
     'stem_conv3x3_s4s2':   lambda op_desc, arch_params, affine:
                             StemConv3x3S4S2(op_desc, affine),
+    'stem_mbconv_r3_s1':   lambda op_desc, arch_params, affine:
+                            StemMBConv3x3R3S1(op_desc, affine),
+    'stem_mbconv_r3_s2':   lambda op_desc, arch_params, affine:
+                            StemMBConv3x3R3S2(op_desc, affine),
+    'stem_mbconv_r3_s4':   lambda op_desc, arch_params, affine:
+                            StemMBConv3x3R3S4(op_desc, affine),
     'pool_adaptive_avg2d':       lambda op_desc, arch_params, affine:
                             PoolAdaptiveAvg2D(),
     'pool_avg2d7x7':    lambda op_desc, arch_params, affine:
@@ -281,6 +295,54 @@ class DilConv(Op):
     def forward(self, input):
         return self.op(input)
 
+class MBConvModule(nn.Module):
+    """ Inverted residual block, informally known as MBConv
+    as utilized in MobileNetV2 paper by Sandler et al, 2018.
+    See Table 1 in the paper for details. 
+    
+    1x1 conv2d - Relu6 - 3x3 depthwise separable - Relu6 - 1x1 conv2d (no non-linearity)    
+    """
+
+    def __init__(self, kernel_size:int, ch_in:int, ch_out: int, stride:int, expansion_ratio:int, affine:bool):
+        super(MBConvModule, self).__init__()
+
+        ch_intermediate = ch_in * expansion_ratio
+
+        self.op = nn.Sequential(
+            nn.Conv2d(ch_in, ch_intermediate, kernel_size=1, padding=0, bias=affine),
+            nn.ReLU6(),
+            nn.Conv2d(ch_intermediate, ch_intermediate, kernel_size=3, 
+                    groups=ch_intermediate, padding=1, stride=stride, bias=affine),
+            nn.ReLU6(),
+            nn.Conv2d(ch_intermediate, ch_out, kernel_size=1, padding=0, bias=affine),
+            nn.BatchNorm2d(ch_out, affine=affine)
+        )
+
+    @overrides
+    def forward(self, input):
+        out = self.op(input)
+        return out 
+
+class MBConv(Op):
+    """ Inverted residual block, informally known as MBConv
+    as utilized in MobileNetV2 paper by Sandler et al, 2018.
+    See Table 1 in the paper for details. 
+    
+    1x1 conv2d - Relu6 - 3x3 depthwise separable - Relu6 - 1x1 conv2d (no non-linearity)    
+    """
+
+    def __init__(self, op_desc:OpDesc, stride:int, expansion_ratio:int, affine:bool):
+        super(MBConv, self).__init__()
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+
+        self.op = MBConvModule(3, ch_in, ch_out, stride=stride, expansion_ratio=expansion_ratio, affine=affine)
+
+    @overrides
+    def forward(self, input):
+        out = self.op(input)
+        return out 
 
 class SepConv(Op):
     """ Depthwise separable conv
@@ -381,6 +443,63 @@ class StemBase(Op):
     def __init__(self, reduction:int) -> None:
         super().__init__()
         self.reduction = reduction
+
+class StemMBConv3x3R3S1(StemBase):
+    def __init__(self, op_desc:OpDesc, affine:bool)->None:
+        super().__init__(1)
+
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+
+        self._op = MBConvModule(3, ch_in, ch_out, stride=1, expansion_ratio=3, affine=affine)
+
+    @overrides
+    def forward(self, input):
+        return self._op(input)
+
+    @overrides
+    def can_drop_path(self)->bool:
+        return False
+
+class StemMBConv3x3R3S2(StemBase):
+    def __init__(self, op_desc:OpDesc, affine:bool)->None:
+        super().__init__(2)
+
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+
+        self._op = MBConvModule(3, ch_in, ch_out, stride=2, expansion_ratio=3, affine=affine),
+
+    @overrides
+    def forward(self, input):
+        return self._op(input)
+
+    @overrides
+    def can_drop_path(self)->bool:
+        return False
+
+class StemMBConv3x3R3S4(StemBase):
+    def __init__(self, op_desc:OpDesc, affine:bool)->None:
+        super().__init__(4)
+
+        conv_params:ConvMacroParams = op_desc.params['conv']
+        ch_in = conv_params.ch_in
+        ch_out = conv_params.ch_out
+
+        self._op = nn.Sequential( # 3 => 48
+            MBConvModule(3, ch_in, ch_out//2, stride=2, expansion_ratio=3, affine=affine),
+            MBConvModule(3, ch_out//2, ch_out, stride=2, expansion_ratio=3, affine=affine)
+        )
+
+    @overrides
+    def forward(self, input):
+        return self._op(input)
+
+    @overrides
+    def can_drop_path(self)->bool:
+        return False
 
 class StemConv3x3(StemBase):
     def __init__(self, op_desc:OpDesc, affine:bool)->None:

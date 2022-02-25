@@ -35,5 +35,6 @@ def get_model_stats(model:Model,
     # model stats is doing some hooks so do it last
     model_stats = tw.ModelStats(model, input_tensor_shape,
                                 clone_model=clone_model)
+    # print(tw.model_stats(model, input_tensor_shape))
     return model_stats
 
