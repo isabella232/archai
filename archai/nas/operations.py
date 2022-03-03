@@ -42,14 +42,12 @@ _ops_factory:Dict[str, Callable] = {
                             DilConv(op_desc, 3, op_desc.params['stride'], 2, 2, affine),
     'dil_conv_5x5':     lambda op_desc, arch_params, affine:
                             DilConv(op_desc, 5, op_desc.params['stride'], 4, 2, affine),
-    'mbconv_r6_s1':     lambda op_desc, arch_params, affine:
-                            MBConv(op_desc, stride=1, expansion_ratio=6, affine=affine),
-    'mbconv_r3_s1':     lambda op_desc, arch_params, affine:
-                            MBConv(op_desc, stride=1, expansion_ratio=3, affine=affine),
-    'mbconv_r3_s2':     lambda op_desc, arch_params, affine:
-                            MBConv(op_desc, stride=2, expansion_ratio=3, affine=affine),
-    'mbconv_r3':     lambda op_desc, arch_params, affine:
+    'mbconv_r3':    lambda op_desc, arch_params, affine:
                             MBConv(op_desc, stride=op_desc.params['stride'], expansion_ratio=3, affine=affine),
+    'mbconv_r2':    lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=op_desc.params['stride'], expansion_ratio=2, affine=affine),
+    'mbconv_r1':    lambda op_desc, arch_params, affine:
+                            MBConv(op_desc, stride=op_desc.params['stride'], expansion_ratio=1, affine=affine),
     'none':             lambda op_desc, arch_params, affine:
                             Zero(op_desc),
     'identity':         lambda op_desc, arch_params, affine:
