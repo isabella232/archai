@@ -19,3 +19,5 @@ from .providers.aircraft_bing_provider import AircraftBingProvider
 from .providers.stanfordcars_provider import StanfordCarsProvider
 from .providers.stanfordcars_bing_provider import StanfordCarsBingProvider
 from .providers.person_coco_provider import PersonCocoProvider
+from .providers.person_coco_cut_paste_provider import PersonCocoCutPasteProvider
+from .providers.person_coco_cut_paste_clutter_provider import PersonCocoCutPasteClutterProvider

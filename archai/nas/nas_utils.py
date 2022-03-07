@@ -31,7 +31,7 @@ def create_checkpoint(conf_checkpoint:Config, resume:bool)->Optional[CheckPoint]
     return checkpoint
 
 def get_model_stats(model:Model,
-                    input_tensor_shape=[1,3,32,32], clone_model=True)->tw.ModelStats:
+                    input_tensor_shape=[1,3,16,16], clone_model=True)->tw.ModelStats:
     # model stats is doing some hooks so do it last
     model_stats = tw.ModelStats(model, input_tensor_shape,
                                 clone_model=clone_model)
