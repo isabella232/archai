@@ -21,7 +21,7 @@ nas:
       aux_tower_stride: 3
       model_stems:
         ops: ['stem_conv3x3_s2', 'stem_conv3x3_s2']
-        init_node_ch: 16 # num of input/output channels for nodes in 1st cell
+        init_node_ch: 32 # num of input/output channels for nodes in 1st cell
         stem_multiplier: 1 # output channels multiplier for the stem
       cell:
         n_nodes: 5 # number of nodes in a cell if template desc is not provided
@@ -68,7 +68,7 @@ nas:
       model_stems:
         ops: ['stem_conv3x3_s2', 'stem_conv3x3_s2']
         stem_multiplier: 1 # output channels multiplier for the stem
-        init_node_ch: 16 # num of input/output channels for nodes in 1st cell
+        init_node_ch: 32 # num of input/output channels for nodes in 1st cell
     seed_train:
       trainer:
         epochs: 80 # number of epochs model will be trained before search
