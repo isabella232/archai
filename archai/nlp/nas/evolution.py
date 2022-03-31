@@ -5,6 +5,7 @@
 """
 
 import copy
+import functools
 import os
 import pickle
 import random
@@ -163,7 +164,7 @@ class Evolution:
         self.max_params, \
         self.max_total_params, \
         self.max_latency, \
-        self.max_memory = self._calculate_gene_constraints(max_gene)
+        self.max_memory = self._calculate_gene_constraints(tuple(max_gene))
 
         print(f'''Largest model in this space has: 
                 {max_config}
@@ -179,7 +180,7 @@ class Evolution:
         self.min_params, \
         self.min_total_params, \
         self.min_latency, \
-        self.min_memory = self._calculate_gene_constraints(min_gene)
+        self.min_memory = self._calculate_gene_constraints(tuple(min_gene))
         
         print(f'''Smallest model in this space has: 
                 {min_config}
@@ -202,9 +203,14 @@ class Evolution:
         # Converts gene to configuration
         config = self.converter.gene_to_config(gene)
 
+        print(f'Gene config: {config}')
+
         # Loads model from current configuration
         model_config = copy.deepcopy(self.model_config)
+        print(f'Model config: {model_config}')
         model_config.update(config)
+
+        print(f'Gene+Model config: {model_config}')
 
         # Checks if model passes number of parameter constraints via analytical means since it is fast
         total_params_analytical = load_model_formula(self.model_type)(model_config)['total']
@@ -227,7 +233,7 @@ class Evolution:
                                                           n_trials=self.latency_repeat)
 
             elif self.constraint_pipeline_type == 'onnx':
-                latency = measure_onnx_inference_latency(self.model_type,
+                _, latency = measure_onnx_inference_latency(self.model_type,
                                                          model_config,
                                                          use_quantization=self.use_quantization,
                                                          n_trials=self.latency_repeat)
@@ -238,7 +244,8 @@ class Evolution:
 
         return True
 
-    def _calculate_gene_constraints(self, gene: List[Any]) -> Tuple[Dict[str, Any], int, int, float, float]:
+    @functools.lru_cache(maxsize=32000)
+    def _calculate_gene_constraints(self, gene: Tuple[Any]) -> Tuple[Dict[str, Any], int, int, float, float]:
         """Calculates an individual gene constraints.
 
         Args:
@@ -280,9 +287,11 @@ class Evolution:
 
         params, total_params, latencies, memories = [], [], [], []
 
-        for gene in genes:
+        for i, gene in enumerate(genes):
+
+            print(f'Checking population contraints {i}/{len(genes)}')
             # Calculates current gene's constraints
-            _, d_params, t_params, latency, memory = self._calculate_gene_constraints(gene)
+            _, d_params, t_params, latency, memory = self._calculate_gene_constraints(tuple(gene))
 
             # Appends constraints to their corresponding lists
             params.append(d_params)
@@ -584,7 +593,7 @@ class Evolution:
         population = []
 
         i = 0
-        while i < n_samples:
+        while i < n_samples-1:
             sampled_gene = []
 
             for k in range(self.gene_size):
@@ -594,6 +603,8 @@ class Evolution:
                 population.append(sampled_gene)
                 i += 1
                 print(f'Valid architectures: {i}/{n_samples}')
+
+        population.append([6, 1024, 4048, 8])
 
         return population
 
@@ -669,6 +680,7 @@ class Evolution:
             while k < self.mutation_size:
                 mutated_gene = self._mutation(random.choices(parents_population)[0])
                 
+                print(f'Checking gene contraints on mutation {k}/{self.mutation_size}')
                 if self._check_gene_constraints(mutated_gene) and not self._is_seen_before(mutated_gene):
                     mutated_population.append(mutated_gene)
                     k += 1
@@ -679,6 +691,7 @@ class Evolution:
             while k < self.crossover_size:
                 crossovered_gene = self._crossover(random.sample(parents_population, 2))
                 
+                print(f'Checking gene contraints on crossover {k}/{self.crossover_size}')
                 if self._check_gene_constraints(crossovered_gene) and not self._is_seen_before(crossovered_gene):
                     crossovered_population.append(crossovered_gene)
                     k += 1

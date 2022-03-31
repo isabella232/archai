@@ -62,7 +62,7 @@ class HfGPT2FlexConfig(Config):
             'dropout': 0.1,
             'dropatt': 0.0,
             'tgt_len': 192,
-            'n_token': 10000, # changed from 267736 for model's production
+            'n_token': 20000, # changed from 267736 for model's production
             'weight_init_std': 0.0,
             'tie_weight': True,
             'primer_square': False
@@ -73,18 +73,18 @@ class HfGPT2FlexConfig(Config):
         return {
             'n_layer': {
                 'per_layer': False,
-                'value': [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                'value': [5, 6, 7, 8, 9, 10, 11, 12]
             },
             'd_model': {
                 'per_layer': False,
-                'value': list(range(128, 1024, 64))
+                'value': list(range(512, 1700, 64))
             },
             'd_inner': {
-                'per_layer': True,
-                'value': list(range(128, 4096, 64))
+                'per_layer': False,
+                'value': list(range(1024, 5096, 64))
             },
             'n_head': {
                 'per_layer': False,
-                'value': [2, 4, 8]
+                'value': [8]
             }
         }

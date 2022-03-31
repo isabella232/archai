@@ -182,8 +182,8 @@ if __name__ == '__main__':
     torch.manual_seed(args['seed'])
 
     # Gathers the latency constraint based on device
-    if args['latency_constraint_upper'] is None:
-        args['latency_constraint_upper'] = DEVICE_LATENCY_CONSTRAINT[args['device_name']]
+    # if args['latency_constraint_upper'] is None:
+    #     args['latency_constraint_upper'] = DEVICE_LATENCY_CONSTRAINT[args['device_name']]
 
     # Initializes the result's path
     now = datetime.now()

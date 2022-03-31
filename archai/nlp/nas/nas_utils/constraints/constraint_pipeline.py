@@ -8,7 +8,7 @@ from typing import Any, Dict, Optional, Tuple
 
 import torch
 
-from archai.nlp.nas.nas_utils.constraints.onnx_constraints import (measure_onnx_disk_memory,
+from archai.nlp.nas.nas_utils.constraints.onnx_constraints import (measure_onnx_peak_mem_x64,
                                                                    measure_onnx_inference_latency,
                                                                    measure_onnx_parameters)
 from archai.nlp.nas.nas_utils.constraints.torch_constraints import (measure_torch_inference_latency,
@@ -155,9 +155,9 @@ class ONNXConstraintPipeline(ConstraintPipeline):
 
     def __init__(self,
                  use_quantization: Optional[bool] = False,
-                 use_median: Optional[bool] = False,
+                 use_median: Optional[bool] = True,
                  batch_size: Optional[int] = 1,
-                 seq_len: Optional[int] = 192,
+                 seq_len: Optional[int] = 30,
                  n_trials: Optional[int] = 10) -> None:
         """Overrides initialization method.
 
@@ -186,24 +186,17 @@ class ONNXConstraintPipeline(ConstraintPipeline):
             
         """
 
-        return (
-            # Number of decoder (non-embedding) parameters
-            measure_onnx_parameters(model_type, model_config, 'non_embedding'),
+        model_path, model_latency = measure_onnx_inference_latency(model_type,
+                                                                    model_config,
+                                                                    self.use_quantization,
+                                                                    self.use_median,
+                                                                    self.batch_size,
+                                                                    self.seq_len,
+                                                                    self.n_trials)
 
-            # Number of total parameters
-            measure_onnx_parameters(model_type, model_config, 'total'),
+        non_embedding_params = measure_onnx_parameters(model_type, model_config, 'non_embedding')
+        total_params = measure_onnx_parameters(model_type, model_config, 'total')
 
-            # Inference latency
-            measure_onnx_inference_latency(model_type,
-                                           model_config,
-                                           self.use_quantization,
-                                           self.use_median,
-                                           self.batch_size,
-                                           self.seq_len,
-                                           self.n_trials),
+        peak_mem = measure_onnx_peak_mem_x64(model_path, model_config)
 
-            # Disk memory
-            measure_onnx_disk_memory(model_type,
-                                     model_config,
-                                     self.use_quantization)
-        )
+        return non_embedding_params, total_params, model_latency, peak_mem

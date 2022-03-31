@@ -7,6 +7,8 @@
 import os
 import timeit
 from typing import Any, Dict, Optional, Tuple
+import subprocess
+import pathlib as pl
 
 import numpy as np
 
@@ -101,9 +103,8 @@ def measure_onnx_inference_latency(model_type: str,
 
     # Calculates proper set of times (instead of sum)
     runner = timer.repeat(repeat=n_trials, number=n_trials)
-    runner = [r / n_trials for r in runner]
     
-    return np.median(runner) if use_median else np.mean(runner)
+    return onnx_model_path, np.median(runner) if use_median else np.mean(runner)
 
 
 def measure_onnx_parameters(model_type: str,
@@ -145,3 +146,26 @@ def measure_onnx_disk_memory(model_type: str,
     disk_memory_mb = disk_memory / (1024 ** 2)
 
     return disk_memory_mb
+
+
+def measure_onnx_peak_mem_x64(model_path: str, model_config) -> float:
+    """Measures an ONNX x64 peak memory using cpp app.
+
+    Args:
+        model_path: Model path.
+
+    Returns:
+        (float): x64 peak memory in MBs.
+
+    """
+
+    exe_path = pl.Path(__file__).parent.absolute() / 'onnx_inf_memory_cpp'
+
+    d_head = model_config['d_model'] // model_config['n_head']
+    args = f"{model_path} 30 {d_head} {model_config['n_head']}"
+    p = subprocess.run(f'{str(exe_path)} {args}', shell=True, capture_output=True)
+
+    peak_mem = int(str(p.stdout).split(' ')[1]) 
+    peak_memory_mb = peak_mem / (1024 ** 2)
+
+    return peak_memory_mb
