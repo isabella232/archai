@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>archai.algos.gumbelsoftmax package &mdash; Archai  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="archai.algos.manual package" href="archai.algos.manual.html" />
+    <link rel="prev" title="archai.algos.divnas package" href="archai.algos.divnas.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Archai
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing Archai</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Archai Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blitz.html">Archai - A 30 Minute Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../petridish.html">Petridish - Code Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dir_struct.html">Directory Structure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">APIs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="archai.html">archai package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="archai.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="archai.algos.html">archai.algos package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.common.html">archai.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.datasets.html">archai.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.nas.html">archai.nas package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.networks.html">archai.networks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="archai.html#module-archai">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Archai</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">APIs</a> &raquo;</li>
+          <li><a href="archai.html">archai package</a> &raquo;</li>
+          <li><a href="archai.algos.html">archai.algos package</a> &raquo;</li>
+      <li>archai.algos.gumbelsoftmax package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/archai.algos.gumbelsoftmax.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="archai-algos-gumbelsoftmax-package">
+<h1>archai.algos.gumbelsoftmax package<a class="headerlink" href="#archai-algos-gumbelsoftmax-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-archai.algos.gumbelsoftmax.gs_arch_trainer">
+<span id="archai-algos-gumbelsoftmax-gs-arch-trainer-module"></span><h2>archai.algos.gumbelsoftmax.gs_arch_trainer module<a class="headerlink" href="#module-archai.algos.gumbelsoftmax.gs_arch_trainer" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.algos.gumbelsoftmax.gs_arch_trainer.</span></span><span class="sig-name descname"><span class="pre">GsArchTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.nn.modules.module.Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.common.html#archai.common.checkpoint.CheckPoint" title="archai.common.checkpoint.CheckPoint"><span class="pre">archai.common.checkpoint.CheckPoint</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_arch_trainer.html#GsArchTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.nas.html#archai.nas.arch_trainer.ArchTrainer" title="archai.nas.arch_trainer.ArchTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.nas.arch_trainer.ArchTrainer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer.create_optimizer">
+<span class="sig-name descname"><span class="pre">create_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_optim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.optim.optimizer.Optimizer</span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_arch_trainer.html#GsArchTrainer.create_optimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer.create_optimizer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer.pre_step">
+<span class="sig-name descname"><span class="pre">pre_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_arch_trainer.html#GsArchTrainer.pre_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_arch_trainer.GsArchTrainer.pre_step" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.algos.gumbelsoftmax.gs_exp_runner">
+<span id="archai-algos-gumbelsoftmax-gs-exp-runner-module"></span><h2>archai.algos.gumbelsoftmax.gs_exp_runner module<a class="headerlink" href="#module-archai.algos.gumbelsoftmax.gs_exp_runner" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.algos.gumbelsoftmax.gs_exp_runner.</span></span><span class="sig-name descname"><span class="pre">GsExperimentRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_expdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_exp_runner.html#GsExperimentRunner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.nas.html#archai.nas.exp_runner.ExperimentRunner" title="archai.nas.exp_runner.ExperimentRunner"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.nas.exp_runner.ExperimentRunner</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.finalizers">
+<span class="sig-name descname"><span class="pre">finalizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="archai.nas.html#archai.nas.finalizers.Finalizers" title="archai.nas.finalizers.Finalizers"><span class="pre">archai.nas.finalizers.Finalizers</span></a></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_exp_runner.html#GsExperimentRunner.finalizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.finalizers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.model_desc_builder">
+<span class="sig-name descname"><span class="pre">model_desc_builder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder" title="archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder"><span class="pre">archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder</span></a></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_exp_runner.html#GsExperimentRunner.model_desc_builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.model_desc_builder" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.trainer_class">
+<span class="sig-name descname"><span class="pre">trainer_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.nas.html#archai.nas.arch_trainer.ArchTrainer" title="archai.nas.arch_trainer.ArchTrainer"><span class="pre">ArchTrainer</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_exp_runner.html#GsExperimentRunner.trainer_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_exp_runner.GsExperimentRunner.trainer_class" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.algos.gumbelsoftmax.gs_finalizers">
+<span id="archai-algos-gumbelsoftmax-gs-finalizers-module"></span><h2>archai.algos.gumbelsoftmax.gs_finalizers module<a class="headerlink" href="#module-archai.algos.gumbelsoftmax.gs_finalizers" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_finalizers.GsFinalizers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.algos.gumbelsoftmax.gs_finalizers.</span></span><span class="sig-name descname"><span class="pre">GsFinalizers</span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_finalizers.html#GsFinalizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_finalizers.GsFinalizers" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.nas.html#archai.nas.finalizers.Finalizers" title="archai.nas.finalizers.Finalizers"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.nas.finalizers.Finalizers</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_finalizers.GsFinalizers.finalize_node">
+<span class="sig-name descname"><span class="pre">finalize_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.nn.modules.container.ModuleList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.NodeDesc" title="archai.nas.model_desc.NodeDesc"><span class="pre">archai.nas.model_desc.NodeDesc</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_final_edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.NodeDesc" title="archai.nas.model_desc.NodeDesc"><span class="pre">archai.nas.model_desc.NodeDesc</span></a></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_finalizers.html#GsFinalizers.finalize_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_finalizers.GsFinalizers.finalize_node" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.algos.gumbelsoftmax.gs_model_desc_builder">
+<span id="archai-algos-gumbelsoftmax-gs-model-desc-builder-module"></span><h2>archai.algos.gumbelsoftmax.gs_model_desc_builder module<a class="headerlink" href="#module-archai.algos.gumbelsoftmax.gs_model_desc_builder" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.algos.gumbelsoftmax.gs_model_desc_builder.</span></span><span class="sig-name descname"><span class="pre">GsModelDescBuilder</span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_model_desc_builder.html#GsModelDescBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.nas.html#archai.nas.model_desc_builder.ModelDescBuilder" title="archai.nas.model_desc_builder.ModelDescBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.nas.model_desc_builder.ModelDescBuilder</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder.build_nodes">
+<span class="sig-name descname"><span class="pre">build_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stem_shapes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf_cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.CellType" title="archai.nas.model_desc.CellType"><span class="pre">archai.nas.model_desc.CellType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.NodeDesc" title="archai.nas.model_desc.NodeDesc"><span class="pre">archai.nas.model_desc.NodeDesc</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_model_desc_builder.html#GsModelDescBuilder.build_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder.build_nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder.pre_build">
+<span class="sig-name descname"><span class="pre">pre_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_model_desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_model_desc_builder.html#GsModelDescBuilder.pre_build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_model_desc_builder.GsModelDescBuilder.pre_build" title="Permalink to this definition"></a></dt>
+<dd><p>hook for accomplishing any setup before build starts</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.algos.gumbelsoftmax.gs_op">
+<span id="archai-algos-gumbelsoftmax-gs-op-module"></span><h2>archai.algos.gumbelsoftmax.gs_op module<a class="headerlink" href="#module-archai.algos.gumbelsoftmax.gs_op" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.algos.gumbelsoftmax.gs_op.</span></span><span class="sig-name descname"><span class="pre">GsOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.OpDesc" title="archai.nas.model_desc.OpDesc"><span class="pre">archai.nas.model_desc.OpDesc</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.nas.html#archai.nas.arch_params.ArchParams" title="archai.nas.arch_params.ArchParams"><span class="pre">archai.nas.arch_params.ArchParams</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.nas.html#archai.nas.operations.Op" title="archai.nas.operations.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.nas.operations.Op</span></code></a></p>
+<p>The output of GsOp is weighted output of all allowed primitives.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.PRIMITIVES">
+<span class="sig-name descname"><span class="pre">PRIMITIVES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['max_pool_3x3',</span> <span class="pre">'avg_pool_3x3',</span> <span class="pre">'skip_connect',</span> <span class="pre">'sep_conv_3x3',</span> <span class="pre">'sep_conv_5x5',</span> <span class="pre">'dil_conv_3x3',</span> <span class="pre">'dil_conv_5x5',</span> <span class="pre">'none']</span></em><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.PRIMITIVES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.can_drop_path">
+<span class="sig-name descname"><span class="pre">can_drop_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp.can_drop_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.can_drop_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampled_weights</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.nas.html#archai.nas.model_desc.OpDesc" title="archai.nas.model_desc.OpDesc"><span class="pre">archai.nas.model_desc.OpDesc</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.finalize" title="Permalink to this definition"></a></dt>
+<dd><p>for trainable op, return final op and its rank</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.ops">
+<span class="sig-name descname"><span class="pre">ops</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="archai.nas.html#archai.nas.operations.Op" title="archai.nas.operations.Op"><span class="pre">archai.nas.operations.Op</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp.ops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.ops" title="Permalink to this definition"></a></dt>
+<dd><p>Return contituent ops, if this op is primitive just return self</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.set_op_sampled_weights">
+<span class="sig-name descname"><span class="pre">set_op_sampled_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampled_weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/algos/gumbelsoftmax/gs_op.html#GsOp.set_op_sampled_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.set_op_sampled_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the weight for each op</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="archai.algos.gumbelsoftmax.gs_op.GsOp.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#archai.algos.gumbelsoftmax.gs_op.GsOp.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.algos.gumbelsoftmax">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-archai.algos.gumbelsoftmax" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="archai.algos.divnas.html" class="btn btn-neutral float-left" title="archai.algos.divnas package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="archai.algos.manual.html" class="btn btn-neutral float-right" title="archai.algos.manual package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

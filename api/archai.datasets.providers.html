@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>archai.datasets.providers package &mdash; Archai  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="archai.datasets.transforms package" href="archai.datasets.transforms.html" />
+    <link rel="prev" title="archai.datasets package" href="archai.datasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Archai
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing Archai</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Archai Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blitz.html">Archai - A 30 Minute Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../petridish.html">Petridish - Code Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dir_struct.html">Directory Structure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">APIs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="archai.html">archai package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="archai.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="archai.algos.html">archai.algos package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.common.html">archai.common package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="archai.datasets.html">archai.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.nas.html">archai.nas package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="archai.networks.html">archai.networks package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="archai.html#module-archai">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Archai</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">APIs</a> &raquo;</li>
+          <li><a href="archai.html">archai package</a> &raquo;</li>
+          <li><a href="archai.datasets.html">archai.datasets package</a> &raquo;</li>
+      <li>archai.datasets.providers package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/archai.datasets.providers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="archai-datasets-providers-package">
+<h1>archai.datasets.providers package<a class="headerlink" href="#archai-datasets-providers-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-archai.datasets.providers.cifar100_provider">
+<span id="archai-datasets-providers-cifar100-provider-module"></span><h2>archai.datasets.providers.cifar100_provider module<a class="headerlink" href="#module-archai.datasets.providers.cifar100_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar100_provider.Cifar100Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.cifar100_provider.</span></span><span class="sig-name descname"><span class="pre">Cifar100Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar100_provider.html#Cifar100Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar100_provider.Cifar100Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar100_provider.Cifar100Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar100_provider.html#Cifar100Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar100_provider.Cifar100Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar100_provider.Cifar100Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar100_provider.html#Cifar100Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar100_provider.Cifar100Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.cifar10_provider">
+<span id="archai-datasets-providers-cifar10-provider-module"></span><h2>archai.datasets.providers.cifar10_provider module<a class="headerlink" href="#module-archai.datasets.providers.cifar10_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar10_provider.Cifar10Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.cifar10_provider.</span></span><span class="sig-name descname"><span class="pre">Cifar10Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar10_provider.html#Cifar10Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar10_provider.Cifar10Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar10_provider.Cifar10Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar10_provider.html#Cifar10Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar10_provider.Cifar10Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.cifar10_provider.Cifar10Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/cifar10_provider.html#Cifar10Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.cifar10_provider.Cifar10Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.fashion_mnist_provider">
+<span id="archai-datasets-providers-fashion-mnist-provider-module"></span><h2>archai.datasets.providers.fashion_mnist_provider module<a class="headerlink" href="#module-archai.datasets.providers.fashion_mnist_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.fashion_mnist_provider.</span></span><span class="sig-name descname"><span class="pre">FashionMnistProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/fashion_mnist_provider.html#FashionMnistProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/fashion_mnist_provider.html#FashionMnistProvider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/fashion_mnist_provider.html#FashionMnistProvider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.fashion_mnist_provider.FashionMnistProvider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.flower102_provider">
+<span id="archai-datasets-providers-flower102-provider-module"></span><h2>archai.datasets.providers.flower102_provider module<a class="headerlink" href="#module-archai.datasets.providers.flower102_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.flower102_provider.Flower102Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.flower102_provider.</span></span><span class="sig-name descname"><span class="pre">Flower102Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/flower102_provider.html#Flower102Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.flower102_provider.Flower102Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.flower102_provider.Flower102Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/flower102_provider.html#Flower102Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.flower102_provider.Flower102Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.flower102_provider.Flower102Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/flower102_provider.html#Flower102Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.flower102_provider.Flower102Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.food101_provider">
+<span id="archai-datasets-providers-food101-provider-module"></span><h2>archai.datasets.providers.food101_provider module<a class="headerlink" href="#module-archai.datasets.providers.food101_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.food101_provider.Food101Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.food101_provider.</span></span><span class="sig-name descname"><span class="pre">Food101Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/food101_provider.html#Food101Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.food101_provider.Food101Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.food101_provider.Food101Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/food101_provider.html#Food101Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.food101_provider.Food101Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.food101_provider.Food101Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/food101_provider.html#Food101Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.food101_provider.Food101Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.imagenet_folder">
+<span id="archai-datasets-providers-imagenet-folder-module"></span><h2>archai.datasets.providers.imagenet_folder module<a class="headerlink" href="#module-archai.datasets.providers.imagenet_folder" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.imagenet_folder.</span></span><span class="sig-name descname"><span class="pre">ImageNetFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_folder.html#ImageNetFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchvision.datasets.folder.ImageFolder</span></code></p>
+<p><a class="reference external" href="http://image-net.org/">ImageNetFolder</a> 2012 Classification Dataset.</p>
+<dl>
+<dt>Args:</dt><dd><blockquote>
+<div><p>root (string): Root directory of the ImageNet Dataset.
+split (string, optional): The dataset split, supports <code class="docutils literal notranslate"><span class="pre">train</span></code>, or <code class="docutils literal notranslate"><span class="pre">val</span></code>.
+download (bool, optional): If true, downloads the dataset from the internet and</p>
+<blockquote>
+<div><p>puts it in root directory. If dataset is already downloaded, it is not
+downloaded again.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>transform (callable, optional): A function/transform that  takes in an PIL image</dt><dd><p>and returns a transformed version. E.g, <code class="docutils literal notranslate"><span class="pre">transforms.RandomCrop</span></code></p>
+</dd>
+<dt>target_transform (callable, optional): A function/transform that takes in the</dt><dd><p>target and transforms it.</p>
+</dd>
+</dl>
+<p>loader (callable, optional): A function to load an image given its path.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>classes (list): List of the class names.
+class_to_idx (dict): Dict with items (class_name, class_index).
+wnids (list): List of the WordNet IDs.
+wnid_to_idx (dict): Dict with items (wordnet_id, class_index).
+imgs (list): List of (image path, class_index) tuples
+targets (list): The class_index value for each image in the dataset</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_folder.html#ImageNetFolder.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder.download" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder.extra_repr">
+<span class="sig-name descname"><span class="pre">extra_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_folder.html#ImageNetFolder.extra_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder.extra_repr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder.meta_file">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meta_file</span></span><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder.meta_file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder.split_folder">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_folder</span></span><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder.split_folder" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_folder.ImageNetFolder.valid_splits">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid_splits</span></span><a class="headerlink" href="#archai.datasets.providers.imagenet_folder.ImageNetFolder.valid_splits" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.imagenet_provider">
+<span id="archai-datasets-providers-imagenet-provider-module"></span><h2>archai.datasets.providers.imagenet_provider module<a class="headerlink" href="#module-archai.datasets.providers.imagenet_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_provider.ImagenetProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.imagenet_provider.</span></span><span class="sig-name descname"><span class="pre">ImagenetProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_provider.html#ImagenetProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_provider.ImagenetProvider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_provider.ImagenetProvider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_provider.html#ImagenetProvider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_provider.ImagenetProvider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.imagenet_provider.ImagenetProvider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/imagenet_provider.html#ImagenetProvider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.imagenet_provider.ImagenetProvider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.mit67_provider">
+<span id="archai-datasets-providers-mit67-provider-module"></span><h2>archai.datasets.providers.mit67_provider module<a class="headerlink" href="#module-archai.datasets.providers.mit67_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.mit67_provider.Mit67Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.mit67_provider.</span></span><span class="sig-name descname"><span class="pre">Mit67Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/mit67_provider.html#Mit67Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mit67_provider.Mit67Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.mit67_provider.Mit67Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/mit67_provider.html#Mit67Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mit67_provider.Mit67Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.mit67_provider.Mit67Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/mit67_provider.html#Mit67Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mit67_provider.Mit67Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.mnist_provider">
+<span id="archai-datasets-providers-mnist-provider-module"></span><h2>archai.datasets.providers.mnist_provider module<a class="headerlink" href="#module-archai.datasets.providers.mnist_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.mnist_provider.MnistProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.mnist_provider.</span></span><span class="sig-name descname"><span class="pre">MnistProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/mnist_provider.html#MnistProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mnist_provider.MnistProvider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.mnist_provider.MnistProvider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/mnist_provider.html#MnistProvider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mnist_provider.MnistProvider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.mnist_provider.MnistProvider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/mnist_provider.html#MnistProvider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.mnist_provider.MnistProvider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.sport8_provider">
+<span id="archai-datasets-providers-sport8-provider-module"></span><h2>archai.datasets.providers.sport8_provider module<a class="headerlink" href="#module-archai.datasets.providers.sport8_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.sport8_provider.Sport8Provider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.sport8_provider.</span></span><span class="sig-name descname"><span class="pre">Sport8Provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/sport8_provider.html#Sport8Provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.sport8_provider.Sport8Provider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.sport8_provider.Sport8Provider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/sport8_provider.html#Sport8Provider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.sport8_provider.Sport8Provider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.sport8_provider.Sport8Provider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/sport8_provider.html#Sport8Provider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.sport8_provider.Sport8Provider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers.svhn_provider">
+<span id="archai-datasets-providers-svhn-provider-module"></span><h2>archai.datasets.providers.svhn_provider module<a class="headerlink" href="#module-archai.datasets.providers.svhn_provider" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="archai.datasets.providers.svhn_provider.SvhnProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archai.datasets.providers.svhn_provider.</span></span><span class="sig-name descname"><span class="pre">SvhnProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="archai.common.html#archai.common.config.Config" title="archai.common.config.Config"><span class="pre">archai.common.config.Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/archai/datasets/providers/svhn_provider.html#SvhnProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.svhn_provider.SvhnProvider" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="archai.datasets.html#archai.datasets.dataset_provider.DatasetProvider" title="archai.datasets.dataset_provider.DatasetProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">archai.datasets.dataset_provider.DatasetProvider</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.svhn_provider.SvhnProvider.get_datasets">
+<span class="sig-name descname"><span class="pre">get_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_test</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.utils.data.dataset.Dataset</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/svhn_provider.html#SvhnProvider.get_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.svhn_provider.SvhnProvider.get_datasets" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="archai.datasets.providers.svhn_provider.SvhnProvider.get_transforms">
+<span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/archai/datasets/providers/svhn_provider.html#SvhnProvider.get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#archai.datasets.providers.svhn_provider.SvhnProvider.get_transforms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-archai.datasets.providers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-archai.datasets.providers" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="archai.datasets.html" class="btn btn-neutral float-left" title="archai.datasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="archai.datasets.transforms.html" class="btn btn-neutral float-right" title="archai.datasets.transforms package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Microsoft.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
