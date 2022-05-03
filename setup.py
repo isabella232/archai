@@ -18,7 +18,8 @@ install_requires=[
     'ftfy', # needed for text scoring, fixes text for you
     # nvidia transformer-xl
     'nv_dllogger', # needed for compatibility between pip and setuptools
-    'pytorch-transformers', 'sacremoses', 'pynvml'
+    'pytorch-transformers', 'sacremoses', 'pynvml',
+    'pytest'
 ]
 
 setup(
