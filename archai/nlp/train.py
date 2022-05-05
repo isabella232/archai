@@ -42,8 +42,11 @@ from archai.nlp.models.model_utils import lamb_optimizer
 from archai.nlp.models.model_utils.cyclic_cosine_scheduler import CyclicCosineDecayLR
 from torch.nn.parallel import DistributedDataParallel
 
+from archai.common.common import create_conf, create_dirs
+from archai.common.config import Config
 
-def parse_args():
+
+def parse_args(new_config):
     parent_parser = argparse.ArgumentParser(
         description='PyTorch Transformer-XL Language Model',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -122,143 +125,143 @@ def parse_args():
                                   'disabled'],
                          help='type of CPU affinity')
 
-    dataset = parser.add_argument_group('dataset setup')
-    dataset.add_argument('--data', type=str, default=None,
-                         help='Location of the data corpus')
-    general.add_argument('--cache_dir', default='cache', type=str,
-                         help='Directory to store dataset cache, either absolute or relative')
-    dataset.add_argument('--dataset', type=str, # set to 'wt103' through config name unless toy mode when its wt2
-                         choices=['wt103', 'wt2', 'lm1b', 'enwik8', 'text8', 'olx_WordData20210110', 'olx_OutlookData20210917x2', 'olx_WordData20211003', 'olx_WordData20220118_S36', 'olx_RedditWA_S100'],
-                         help='Dataset name')
-    dataset.add_argument('--vocab', type=str, default='word', choices=['word', 'bbpe', 'gpt2'],
-                         help='Type of vocabulary')
-    dataset.add_argument('--vocab_size', type=int, default=None,
-                         help='Size of vocabulary')
+    # dataset = parser.add_argument_group('dataset setup')
+    # dataset.add_argument('--data', type=str, default=None,
+    #                      help='Location of the data corpus')
+    # general.add_argument('--cache_dir', default='cache', type=str,
+    #                      help='Directory to store dataset cache, either absolute or relative')
+    # dataset.add_argument('--dataset', type=str, # set to 'wt103' through config name unless toy mode when its wt2
+    #                      choices=['wt103', 'wt2', 'lm1b', 'enwik8', 'text8', 'olx_WordData20210110', 'olx_OutlookData20210917x2', 'olx_WordData20211003', 'olx_WordData20220118_S36', 'olx_RedditWA_S100'],
+    #                      help='Dataset name')
+    # dataset.add_argument('--vocab', type=str, default='word', choices=['word', 'bbpe', 'gpt2'],
+    #                      help='Type of vocabulary')
+    # dataset.add_argument('--vocab_size', type=int, default=None,
+    #                      help='Size of vocabulary')
 
-    model = parser.add_argument_group('model setup - defaults are for base model')
-    model.add_argument('--model_type', default='mem_transformer', type=str,
-                     choices=['hf_gpt2', 'hf_gpt2_flex', 'hf_transfo_xl', 'mem_transformer'],
-                     help='Which model type to use')
-    model.add_argument('--n_layer', type=int, default=16,
-                       help='Number of total layers')
-    model.add_argument('--n_head', nargs='+', type=int, default=8,
-                       help='Number of heads')
-    model.add_argument('--d_head', type=int, default=-1, # will be set by d_model // n_head
-                       help='Head dimension')
-    model.add_argument('--d_embed', type=int, default=-1, # will be set from d_model
-                       help='Embedding dimension')
-    model.add_argument('--d_model', type=int, default=512,
-                       help='Model dimension')
-    model.add_argument('--d_inner', nargs='+', type=int, default=2048,
-                       help='Inner dimension in feedforward layer')
-    model.add_argument('--dropout', type=float, default=0.1,
-                       help='Global dropout rate')
-    model.add_argument('--dropatt', type=float, default=0.0,
-                       help='Attention probability dropout rate')
-    model.add_argument('--pre_lnorm', action='store_true',
-                       help='Apply LayerNorm to the input instead of the output')
-    model.add_argument('--attn_type', type=int, default=0,
-                       help='Attention type. 0 for ours, 1 for Shaw et al,'
-                       '2 for Vaswani et al, 3 for Al Rfou et al.')
-    model.add_argument('--not_tied', action='store_true',
-                       help='Do not tie the word embedding and softmax weights')
-    model.add_argument('--clamp_len', type=int, default=-1,
-                       help='Use the same pos embeddings after clamp_len')
-    model.add_argument('--adaptive', action='store_true',
-                       help='Use adaptive softmax')
-    model.add_argument('--div_val', type=int, default=1,
-                       help='Dividend value for adaptive input and softmax')
-    model.add_argument('--sample_softmax', type=int, default=-1,
-                       help='Number of samples in sampled softmax')
-    model.add_argument('--init', default='normal', type=str,
-                       help='Parameter initializer to use')
-    model.add_argument('--emb_init', default='normal', type=str,
-                       help='Parameter initializer to use')
-    model.add_argument('--init_range', type=float, default=0.1,
-                       help='Parameters initialized by U(-init_range, init_range)')
-    model.add_argument('--emb_init_range', type=float, default=0.01,
-                       help='Parameters initialized by U(-init_range, init_range)')
-    model.add_argument('--init_std', type=float, default=0.02,
-                       help='Parameters initialized by N(0, init_std)')
-    model.add_argument('--proj_init_std', type=float, default=0.01,
-                       help='Parameters initialized by N(0, init_std)')
-    model.add_argument('--primer_square', action='store_true',
-                       help='Use Primer EZ arch modifications (squared relu)')
-    model.add_argument('--primer_conv', action='store_true',
-                       help='Use Primer EZ arch modifications (DConv)')
-    model.add_argument('--use_cache', action='store_true',
-                       help='Whether to return last key/value attentions to speed decoding')
-    model.add_argument('--qat', action='store_true',
-                       help='Whether to perform Quantization Aware Training (usually based on pretrained model)')
+    # model = parser.add_argument_group('model setup - defaults are for base model')
+    # model.add_argument('--model_type', default='mem_transformer', type=str,
+    #                  choices=['hf_gpt2', 'hf_gpt2_flex', 'hf_transfo_xl', 'mem_transformer'],
+    #                  help='Which model type to use')
+    # model.add_argument('--n_layer', type=int, default=16,
+    #                    help='Number of total layers')
+    # model.add_argument('--n_head', nargs='+', type=int, default=8,
+    #                    help='Number of heads')
+    # model.add_argument('--d_head', type=int, default=-1, # will be set by d_model // n_head
+    #                    help='Head dimension')
+    # model.add_argument('--d_embed', type=int, default=-1, # will be set from d_model
+    #                    help='Embedding dimension')
+    # model.add_argument('--d_model', type=int, default=512,
+    #                    help='Model dimension')
+    # model.add_argument('--d_inner', nargs='+', type=int, default=2048,
+    #                    help='Inner dimension in feedforward layer')
+    # model.add_argument('--dropout', type=float, default=0.1,
+    #                    help='Global dropout rate')
+    # model.add_argument('--dropatt', type=float, default=0.0,
+    #                    help='Attention probability dropout rate')
+    # model.add_argument('--pre_lnorm', action='store_true',
+    #                    help='Apply LayerNorm to the input instead of the output')
+    # model.add_argument('--attn_type', type=int, default=0,
+    #                    help='Attention type. 0 for ours, 1 for Shaw et al,'
+    #                    '2 for Vaswani et al, 3 for Al Rfou et al.')
+    # model.add_argument('--not_tied', action='store_true',
+    #                    help='Do not tie the word embedding and softmax weights')
+    # model.add_argument('--clamp_len', type=int, default=-1,
+    #                    help='Use the same pos embeddings after clamp_len')
+    # model.add_argument('--adaptive', action='store_true',
+    #                    help='Use adaptive softmax')
+    # model.add_argument('--div_val', type=int, default=1,
+    #                    help='Dividend value for adaptive input and softmax')
+    # model.add_argument('--sample_softmax', type=int, default=-1,
+    #                    help='Number of samples in sampled softmax')
+    # model.add_argument('--init', default='normal', type=str,
+    #                    help='Parameter initializer to use')
+    # model.add_argument('--emb_init', default='normal', type=str,
+    #                    help='Parameter initializer to use')
+    # model.add_argument('--init_range', type=float, default=0.1,
+    #                    help='Parameters initialized by U(-init_range, init_range)')
+    # model.add_argument('--emb_init_range', type=float, default=0.01,
+    #                    help='Parameters initialized by U(-init_range, init_range)')
+    # model.add_argument('--init_std', type=float, default=0.02,
+    #                    help='Parameters initialized by N(0, init_std)')
+    # model.add_argument('--proj_init_std', type=float, default=0.01,
+    #                    help='Parameters initialized by N(0, init_std)')
+    # model.add_argument('--primer_square', action='store_true',
+    #                    help='Use Primer EZ arch modifications (squared relu)')
+    # model.add_argument('--primer_conv', action='store_true',
+    #                    help='Use Primer EZ arch modifications (DConv)')
+    # model.add_argument('--use_cache', action='store_true',
+    #                    help='Whether to return last key/value attentions to speed decoding')
+    # model.add_argument('--qat', action='store_true',
+    #                    help='Whether to perform Quantization Aware Training (usually based on pretrained model)')
 
-    opt = parser.add_argument_group('optimizer setup')
-    opt.add_argument('--optim', default='jitlamb', type=str,
-                     choices=['adam', 'sgd', 'adagrad', 'lamb', 'jitlamb'],
-                     help='Optimizer to use')
-    opt.add_argument('--lr', type=float, default=0.01,
-                     help='Initial learning rate')
-    opt.add_argument('--mom', type=float, default=0.0,
-                     help='Momentum for sgd')
-    opt.add_argument('--scheduler', default='cosine', type=str,
-                     choices=['cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine'],
-                     help='LR scheduler to use')
-    opt.add_argument('--scheduler_qat', default='cosine', type=str,
-                     choices=['cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine'],
-                     help='LR scheduler to use during QAT')
-    opt.add_argument('--max_step_scheduler', type=int, default=None,
-                     help='Max number of training steps for LR scheduler')
-    opt.add_argument('--warmup_step', type=int, default=1000,
-                     help='Number of iterations for LR warmup')
-    opt.add_argument('--decay_rate', type=float, default=0.5,
-                     help='Decay factor when ReduceLROnPlateau is used')
-    opt.add_argument('--lr_min', type=float, default=0.0,
-                     help='Minimum learning rate during annealing')
-    opt.add_argument('--clip', type=float, default=0.25,
-                     help='Gradient clipping')
-    opt.add_argument('--weight_decay', type=float, default=0.0,
-                     help='Weight decay for adam|lamb')
-    opt.add_argument('--clip_nonemb', action='store_true',
-                     help='Only clip the gradient of non-embedding params')
-    opt.add_argument('--patience', type=int, default=0,
-                     help='Patience')
-    opt.add_argument('--eta_min', type=float, default=0.001,
-                     help='Min learning rate for cosine scheduler')
-    opt.add_argument('--mixed_qat', action='store_true',
-                     help='Only clip the gradient of non-embedding params')
+    # opt = parser.add_argument_group('optimizer setup')
+    # opt.add_argument('--optim', default='jitlamb', type=str,
+    #                  choices=['adam', 'sgd', 'adagrad', 'lamb', 'jitlamb'],
+    #                  help='Optimizer to use')
+    # opt.add_argument('--lr', type=float, default=0.01,
+    #                  help='Initial learning rate')
+    # opt.add_argument('--mom', type=float, default=0.0,
+    #                  help='Momentum for sgd')
+    # opt.add_argument('--scheduler', default='cosine', type=str,
+    #                  choices=['cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine'],
+    #                  help='LR scheduler to use')
+    # opt.add_argument('--scheduler_qat', default='cosine', type=str,
+    #                  choices=['cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine'],
+    #                  help='LR scheduler to use during QAT')
+    # opt.add_argument('--max_step_scheduler', type=int, default=None,
+    #                  help='Max number of training steps for LR scheduler')
+    # opt.add_argument('--warmup_step', type=int, default=1000,
+    #                  help='Number of iterations for LR warmup')
+    # opt.add_argument('--decay_rate', type=float, default=0.5,
+    #                  help='Decay factor when ReduceLROnPlateau is used')
+    # opt.add_argument('--lr_min', type=float, default=0.0,
+    #                  help='Minimum learning rate during annealing')
+    # opt.add_argument('--clip', type=float, default=0.25,
+    #                  help='Gradient clipping')
+    # opt.add_argument('--weight_decay', type=float, default=0.0,
+    #                  help='Weight decay for adam|lamb')
+    # opt.add_argument('--clip_nonemb', action='store_true',
+    #                  help='Only clip the gradient of non-embedding params')
+    # opt.add_argument('--patience', type=int, default=0,
+    #                  help='Patience')
+    # opt.add_argument('--eta_min', type=float, default=0.001,
+    #                  help='Min learning rate for cosine scheduler')
+    # opt.add_argument('--mixed_qat', action='store_true',
+    #                  help='Only clip the gradient of non-embedding params')
 
-    training = parser.add_argument_group('training setup')
-    training.add_argument('--max_step', type=int, default=40000,
-                          help='Max number of training steps')
-    training.add_argument('--batch_size', type=int, default=256,
-                          help='Global batch size')
-    training.add_argument('--local_batch_size', type=int, default=None,
-                          help='Local (per-device) batch size, this setting \
-                          overrides global --batch_size and sets batch_size \
-                          to local_batch_size * world_size')
-    training.add_argument('--batch_chunk', type=int, default=1,
-                          help='Split batch into chunks and train with '
-                          'gradient accumulation. 16GB V100 FP16 requires 1 chunk, FP32 requires 2 chunks')
-    training.add_argument('--roll', action='store_true',
-                          help='Enable random shifts within each data stream')
-    training.add_argument('--tgt_len', type=int, default=192,
-                          help='Number of tokens to predict')
-    training.add_argument('--ext_len', type=int, default=0,
-                          help='Length of the extended context')
-    training.add_argument('--mem_len', type=int, default=192,
-                          help='Length of the retained previous heads, number of tokens cached from previous iterations during training')
-    training.add_argument('--seed', type=int, default=42,
-                          help='Random seed')
-    training.add_argument('--multi_gpu', default=None, type=str,
-                          choices=['ddp', 'dp'],
-                          help='Use multiple GPU')
-    training.add_argument('--gpu0_bsz', type=int, default=-1,
-                          help='Batch size on gpu 0 (for "dp" backend)')
-    training.add_argument('--same_length', action='store_true',
-                          help='Use the same attn length for all tokens')
-    training.add_argument('--varlen', action='store_true',
-                          help='Use variable length')
-    training.add_argument('--swap_mem', action='store_true',
-                          help='Swap memory tensors to cpu')
+    # training = parser.add_argument_group('training setup')
+    # training.add_argument('--max_step', type=int, default=40000,
+    #                       help='Max number of training steps')
+    # training.add_argument('--batch_size', type=int, default=256,
+    #                       help='Global batch size')
+    # training.add_argument('--local_batch_size', type=int, default=None,
+    #                       help='Local (per-device) batch size, this setting \
+    #                       overrides global --batch_size and sets batch_size \
+    #                       to local_batch_size * world_size')
+    # training.add_argument('--batch_chunk', type=int, default=1,
+    #                       help='Split batch into chunks and train with '
+    #                       'gradient accumulation. 16GB V100 FP16 requires 1 chunk, FP32 requires 2 chunks')
+    # training.add_argument('--roll', action='store_true',
+    #                       help='Enable random shifts within each data stream')
+    # training.add_argument('--tgt_len', type=int, default=192,
+    #                       help='Number of tokens to predict')
+    # training.add_argument('--ext_len', type=int, default=0,
+    #                       help='Length of the extended context')
+    # training.add_argument('--mem_len', type=int, default=192,
+    #                       help='Length of the retained previous heads, number of tokens cached from previous iterations during training')
+    # training.add_argument('--seed', type=int, default=42,
+    #                       help='Random seed')
+    # training.add_argument('--multi_gpu', default=None, type=str,
+    #                       choices=['ddp', 'dp'],
+    #                       help='Use multiple GPU')
+    # training.add_argument('--gpu0_bsz', type=int, default=-1,
+    #                       help='Batch size on gpu 0 (for "dp" backend)')
+    # # training.add_argument('--same_length', action='store_true',
+    # #                       help='Use the same attn length for all tokens')
+    # training.add_argument('--varlen', action='store_true',
+    #                       help='Use variable length')
+    # training.add_argument('--swap_mem', action='store_true',
+    #                       help='Swap memory tensors to cpu')
 
     val = parser.add_argument_group('validation setup')
     val.add_argument('--eval_tgt_len', type=int, default=192,
@@ -284,30 +287,42 @@ def parse_args():
     parser.set_defaults(**config)
     args, _ = parser.parse_known_args()
 
-    args.tied = not args.not_tied
+    # args.tied = not args.not_tied
 
-    if args.ext_len < 0:
+
+    # Check arguments
+
+    batch_size = new_config['train']['loader']['batch_size']
+    tgt_len = new_config['train']['loader']['tgt_len']
+    mem_len = new_config['train']['loader']['mem_len']
+    ext_len = new_config['train']['loader']['ext_len']
+
+    eval_tgt_len = new_config['eval']['loader']['tgt_len']
+
+    batch_chunk = new_config['train']['batch_chunk']
+
+    if ext_len < 0:
         raise RuntimeError('Extended context length must be non-negative')
 
     # default mem_len==192, eval_tgt_len==192, tgt_len==192
     if args.mem_len == 0:
-        if args.eval_tgt_len > args.ext_len + args.tgt_len:
+        if args.eval_tgt_len > ext_len + tgt_len:
             raise RuntimeError('eval_tgt_len should be <= tgt_len + ext_len; '
-                               f'eval_tgt_len: {args.eval_tgt_len}, '
-                               f'tgt_len: {args.tgt_len}, '
-                               f'ext_len: {args.ext_len}')
+                               f'eval_tgt_len: {eval_tgt_len}, '
+                               f'tgt_len: {tgt_len}, '
+                               f'ext_len: {ext_len}')
     else:
-        if args.eval_tgt_len > args.mem_len + args.tgt_len:
+        if eval_tgt_len > mem_len + tgt_len:
             raise RuntimeError('eval_tgt_len should be <= tgt_len + mem_len; '
-                               f'eval_tgt_len: {args.eval_tgt_len}, '
-                               f'tgt_len: {args.tgt_len}, '
-                               f'mem_len: {args.mem_len}')
+                               f'eval_tgt_len: {eval_tgt_len}, '
+                               f'tgt_len: {tgt_len}, '
+                               f'mem_len: {mem_len}')
 
-    if args.batch_size % args.batch_chunk != 0:
+    if batch_size % batch_chunk != 0:
         raise RuntimeError('Batch size needs to be divisible by batch chunk')
 
-    if args.debug is None:
-        args.debug = utils.is_debugging()
+    if new_config['common']['debug'] is None:
+        new_config['common']['debug'] = utils.is_debugging()
 
     args.config = config_args.config
 
@@ -376,22 +391,29 @@ def update_dropatt(m, args):
         m.dropatt.p = args.dropatt
 
 
-def evaluate(eval_iter, model, args, eval_nomem=True):
+def evaluate(eval_iter, model, conf, eval_nomem=True):
+
+    tgt_len = conf['train']['loader']['tgt_len']
+    mem_len = conf['train']['loader']['mem_len']
+    ext_len = conf['train']['loader']['ext_len']
+
+    eval_tgt_len = conf['eval']['loader']['tgt_len']
+    eval_max_steps = conf['eval']['max_steps']
     # Turn on evaluation mode which disables dropout.
     model.eval()
 
     # If the model does not use memory at all, make the ext_len longer.
     # Otherwise, make the mem_len longer and keep the ext_len the same.
     # default mem_len==192, eval_tgt_len==192, tgt_len==192
-    if args.mem_len == 0:
-        model.reset_length(tgt_len=args.eval_tgt_len,
-                           ext_len=args.ext_len + args.tgt_len - args.eval_tgt_len,
-                           mem_len=args.mem_len
+    if mem_len == 0:
+        model.reset_length(tgt_len=eval_tgt_len,
+                           ext_len=ext_len + tgt_len - eval_tgt_len,
+                           mem_len=mem_len
                            )
     else:
-        model.reset_length(tgt_len=args.eval_tgt_len,
-                           ext_len=args.ext_len,
-                           mem_len=args.mem_len + args.tgt_len - args.eval_tgt_len,
+        model.reset_length(tgt_len=eval_tgt_len,
+                           ext_len=ext_len,
+                           mem_len=mem_len + tgt_len - eval_tgt_len,
                            )
 
     # Evaluation
@@ -401,7 +423,7 @@ def evaluate(eval_iter, model, args, eval_nomem=True):
         mems = None
         for batches, (input_ids, labels, seq_len, warm) in enumerate(eval_iter):
             steps += 1
-            if args.eval_max_steps > 0 and i >= args.eval_max_steps:
+            if eval_max_steps > 0 and i >= eval_max_steps:
                 break
 
             # first with mem
@@ -427,9 +449,9 @@ def evaluate(eval_iter, model, args, eval_nomem=True):
     elapsed = time.time() - start_time
 
     # Switch back to the training mode
-    model.reset_length(tgt_len=args.tgt_len,
-                       ext_len=args.ext_len,
-                       mem_len=args.mem_len
+    model.reset_length(tgt_len=tgt_len,
+                       ext_len=ext_len,
+                       mem_len=mem_len
                        )
     model.train()
 
@@ -472,23 +494,28 @@ class EvalMetrics:
 
 
 def train_iteration(model, i, mems, input_ids_chunks, labels_chunks, scaler,
-                    optimizer, device, delay_unscale, args):
+                    optimizer, device, delay_unscale, conf):
+
+
+    batch_chunk = conf['train']['batch_chunk']
+    swap_mem = conf['train']['swap_mem']
+    use_fp16 = conf['common']['fp16']
     # trains a given chunk
     cpu = torch.device('cpu')
     input_ids_i = input_ids_chunks[i].contiguous()
     labels_i = labels_chunks[i].contiguous()
 
-    if args.swap_mem and mems[i] is not None:
+    if swap_mem and mems[i] is not None:
         mems[i] = mems[i].to(device, non_blocking=True)
 
-    with torch.cuda.amp.autocast(args.fp16):
+    with torch.cuda.amp.autocast(use_fp16):
         loss, _, mems[i], _ = model(input_ids_i, labels_i, mems[i])
-        loss = loss.float().mean().type_as(loss) / args.batch_chunk
+        loss = loss.float().mean().type_as(loss) / batch_chunk
 
-    if args.swap_mem and mems[i] is not None:
+    if swap_mem and mems[i] is not None:
         mems[i] = mems[i].to(cpu, non_blocking=True)
 
-    if args.fp16:
+    if use_fp16:
         scaler.scale(loss).backward()
     else:
         loss.backward()
@@ -500,7 +527,26 @@ def train_iteration(model, i, mems, input_ids_chunks, labels_chunks, scaler,
 def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
           optimizer_sparse, scheduler, scheduler_sparse, scaler, vocab, epoch,
           last_batch, last_iter, train_step, best_val_loss, meters,
-          device, args, valid_file_stats):
+          device, args, conf, valid_file_stats):
+
+    expdir = conf['common']['expdir']
+    use_fp16 = conf['common']['fp16']
+
+    dataset_name = conf['dataset']['name']
+
+    use_qat = conf['train']['qat']
+    batch_chunk = conf['train']['batch_chunk']
+    train_varlen = conf['train']['loader']['varlen']
+
+    optim_conf = conf['train']['optimizer']
+    scheduler_conf = conf['train']['lr_schedule']
+
+    clip_amount = optim_conf['clip']
+    inital_lr = optim_conf['lr']
+
+    scheduler_name = scheduler_conf['type_qat'] if use_qat else scheduler_conf['type']
+    warmup_step = scheduler_conf['warmup_step']
+
     # Turn on training mode which enables dropout.
     model.train()
 
@@ -509,10 +555,10 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
     log_step = 0
     log_start_time = time.time()
 
-    mems = [None for _ in range(args.batch_chunk)]
+    mems = [None for _ in range(batch_chunk)]
     # Changes to make train_iter for lm1b to be properly caught
-    if args.dataset != 'lm1b':
-        if args.varlen:
+    if dataset_name != 'lm1b':
+        if train_varlen:
             train_iter = train_itr.get_varlen_iter(start=last_iter)
         else:
             train_iter = train_itr.get_fixlen_iter(start=last_iter)
@@ -528,32 +574,32 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             param.grad = None
 
         # Splits a tensor into a specific number of chunks. Each chunk is a view of the input tensor.
-        input_ids_chunks = torch.chunk(input_ids, args.batch_chunk, 0)
-        labels_chunks = torch.chunk(labels, args.batch_chunk, 0)
+        input_ids_chunks = torch.chunk(input_ids, batch_chunk, 0)
+        labels_chunks = torch.chunk(labels, batch_chunk, 0)
 
-        for i in range(args.batch_chunk):
+        for i in range(batch_chunk):
             # if this is last chunk and distribued mode then use delay_unscale=True for amp
-            if i < args.batch_chunk - 1 and isinstance(para_model, DistributedDataParallel):
+            if i < batch_chunk - 1 and isinstance(para_model, DistributedDataParallel):
                 with para_model.no_sync():
                     train_loss_chunk = train_iteration(
                         para_model, i, mems, input_ids_chunks, labels_chunks, scaler,
-                        optimizer, device, True, args
+                        optimizer, device, True, conf
                     )
             else:
                 train_loss_chunk = train_iteration(
                     para_model, i, mems, input_ids_chunks, labels_chunks, scaler,
-                    optimizer, device, False, args
+                    optimizer, device, False, conf
                 )
 
             train_loss += train_loss_chunk
 
-        if args.fp16:
+        if use_fp16:
             scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), clip_amount)
         else:
-            torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), clip_amount)
 
-        if args.fp16:
+        if use_fp16:
             scaler.step(optimizer)
             scaler.update()
         else:
@@ -563,19 +609,19 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
 
         # step-wise learning rate annealing
         train_step += 1
-        if args.scheduler in ['cosine', 'constant', 'dev_perf']:
+        if scheduler_name in ['cosine', 'constant', 'dev_perf']:
             # linear warmup stage
-            if train_step < args.warmup_step:
-                curr_lr = args.lr * train_step / args.warmup_step
+            if train_step < warmup_step:
+                curr_lr = inital_lr * train_step / warmup_step
                 optimizer.param_groups[0]['lr'] = curr_lr
                 if optimizer_sparse:
                     optimizer_sparse.param_groups[0]['lr'] = curr_lr * 2
             else:
-                if args.scheduler == 'cosine':
-                    scheduler.step(train_step - args.warmup_step)
+                if scheduler_name == 'cosine':
+                    scheduler.step(train_step - warmup_step)
                     if scheduler_sparse:
-                        scheduler_sparse.step(train_step - args.warmup_step)
-        elif args.scheduler in ['inv_sqrt', 'cyclic_cosine']:
+                        scheduler_sparse.step(train_step - warmup_step)
+        elif scheduler_name in ['inv_sqrt', 'cyclic_cosine']:
             scheduler.step(train_step)
             if scheduler_sparse:
                 scheduler_sparse.step(train_step)
@@ -618,7 +664,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
                 'train_loss': cur_loss,
                 }
 
-            if args.dataset in ['enwik8', 'text8']:
+            if dataset_name in ['enwik8', 'text8']:
                 log_str += ' | bpc {:9.5f}'.format(cur_loss / math.log(2))
                 dllogger_data['train_bits_per_character'] = cur_loss / math.log(2)
             else:
@@ -634,7 +680,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
 
         if (do_periodic_eval or is_final_step or interrupted) and not args.no_eval:
             eval_start_time = time.time()
-            node_metrix = evaluate(valid_itr, model, args, eval_nomem=False)
+            node_metrix = evaluate(valid_itr, model, conf, eval_nomem=False)
             val_metrix = EvalMetrics(valid_file_stats.word_count, *node_metrix)
 
             logging.info('-' * 100)
@@ -653,7 +699,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
                 'valid_word_ppl': val_metrix.word_ppl
                 }
 
-            if args.dataset in ['enwik8', 'text8']:
+            if dataset_name in ['enwik8', 'text8']:
                 log_str += ' | bpc {:9.5f}'.format(val_metrix.bpc)
                 dllogger_data['valid_bits_per_character'] = val_metrix.bpc
             else:
@@ -674,7 +720,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             model_to_save = model
             prefix = ''
 
-            if args.qat:
+            if use_qat:
                 # Convert the model to a regular FP32 model for saving
                 model_float = copy.deepcopy(model)
                 model_float = qat_to_float_modules(model_float)
@@ -684,10 +730,10 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             save_checkpoint(args, model_to_save, model_config, optimizer, scheduler,
                             scaler, vocab, epoch, batch, last_iter,
                             train_step, best_val_loss, is_best,
-                            args.work_dir, prefix=prefix)
+                            expdir, prefix=prefix)
 
             # dev-performance based learning rate annealing
-            if args.scheduler == 'dev_perf':
+            if scheduler_name == 'dev_perf':
                 scheduler.step(val_metrix.avg_loss)
                 if scheduler_sparse:
                     scheduler_sparse.step(val_metrix.avg_loss)
@@ -704,10 +750,28 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
     return train_step, best_val_loss
 
 
-def init(disable_multiple_dlogger=False):
+def init(config, disable_multiple_dlogger=False):
     exp_utils.script_init()
 
-    args = parse_args()
+    args = parse_args(config)
+
+    dataroot = config['dataset']['dataroot']
+    cache_dir = config['dataset']['cache_dir']
+    data_dir = config['dataset']['data_dir']
+
+    logdir = config['common']['logdir']
+    work_dir = config['common']['expdir']
+    use_cuda = config['common']['cuda']
+    log_all_ranks = config['common']['log_all_ranks']
+    txtlog_file = config['common']['txtlog_file']
+    dllog_file = config['common']['dllog_file']
+    is_toy = config['common']['toy']
+    is_debug = config['common']['debug']
+    seed = config['common']['seed']
+
+    pretrained_path = config['train']['pretrained_path']
+    local_batch_size = config['train']['loader']['local_batch_size']
+
 
     # TODO: below is commented out because nvlm installation issues on Windows
     # if args.affinity != 'disabled':
@@ -722,57 +786,71 @@ def init(disable_multiple_dlogger=False):
     # Initialize device and distributed backend
     torch.cuda.set_device(args.local_rank)
     l2_promote()
-    device = torch.device('cuda' if args.cuda else 'cpu')
-    nv_distributed.init_distributed(args.cuda)
+    device = torch.device('cuda' if use_cuda else 'cpu')
+    nv_distributed.init_distributed(use_cuda)
 
-    args.data, args.work_dir, args.pretrained_path, args.cache_dir, args.dataroot = \
-        exp_utils.get_create_dirs(args.data, args.dataset, args.experiment_name,
-                                  args.work_dir, args.pretrained_path, args.cache_dir)
+    data_dir = utils.full_path(os.path.join(dataroot, data_dir))
 
-    with nv_distributed.sync_workers() as rank:
-        if rank == 0:
-            create_exp_dir(args.work_dir,
-                           scripts_to_save=[], #['train.py', 'mem_transformer.py'],
-                           debug=args.debug)
+    if not os.path.isabs(cache_dir):
+        cache_dir = os.path.join(data_dir, cache_dir)
+    
+    cache_dir = utils.full_path(cache_dir, create=True)
+
+    if not os.path.isabs(pretrained_path) and pretrained_path:
+        pretrained_path = os.path.join(os.path.dirname(logdir), pretrained_path)
+        config['model']['pretrained_path'] = pretrained_path
+
+    
+    config['dataset']['cache_dir'] = cache_dir
+    config['dataset']['data_dir'] = data_dir
+    # args.data, args.work_dir, args.pretrained_path, args.cache_dir, args.dataroot = \
+    #     exp_utils.get_create_dirs(args.data, args.dataset, args.experiment_name,
+    #                               args.work_dir, args.pretrained_path, args.cache_dir)
+
+    # with nv_distributed.sync_workers() as rank:
+    #     if rank == 0:
+    #         create_exp_dir(args.work_dir,
+    #                        scripts_to_save=[], #['train.py', 'mem_transformer.py'],
+    #                        debug=args.debug)
 
     # Setup logging
-    if args.log_all_ranks:
+    if log_all_ranks:
         log_file = f'train_log_rank_{nv_distributed.get_rank()}.log'
     else:
-        log_file = args.txtlog_file
-    dllog_file = args.dllog_file
-    log_file = os.path.join(args.work_dir, log_file)
-    dllog_file = os.path.join(args.work_dir, dllog_file)
+        log_file = txtlog_file
+
+    log_file = os.path.join(work_dir, log_file)
+    dllog_file = os.path.join(work_dir, dllog_file)
 
     # if args.debug:
     #     log_file = os.devnull
     #     dllog_file = os.devnull
 
-    exp_utils.setup_logging(log_all_ranks=args.log_all_ranks, filename=log_file)
+    exp_utils.setup_logging(log_all_ranks=log_all_ranks, filename=log_file)
     exp_utils.setup_dllogger(enabled=True, filename=dllog_file, disable_multiple=disable_multiple_dlogger)
 
-    if args.config == 'toy':
+    if is_toy:
         logging.warning('Running in toy mode which means wt2 dataset, only one step training, a lot of batch chunking for laptop GPU')
 
-    if args.local_batch_size is not None: # default is None
+    if local_batch_size is not None: # default is None
         world_size = nv_distributed.get_world_size()
-        args.batch_size = world_size * args.local_batch_size
-        logging.info(f'--local_batch_size was set, adjusting global batch size'
-                     f' to {args.batch_size} (local_batch_size * world_size)')
+        config['train']['loader']['batch_size'] = world_size * local_batch_size
+        logging.info(f"--local_batch_size was set, adjusting global batch size"
+                     f" to {config['train']['loader']['batch_size']} (local_batch_size * world_size)")
 
     logging.info(args)
     dllogger.log(step='PARAMETER', data=vars(args))
 
     logging.info(f'world size: {nv_distributed.get_world_size()}')
 
-    if not args.debug and not args.no_env:
+    if not is_debug and not args.no_env:
         log_env_info()
 
     #register_ignoring_timeout_handler()
 
     # Set the random seed manually for reproducibility.
-    np.random.seed(args.seed)
-    torch.manual_seed(args.seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
 
     logging.info('=' * 100)
     for k, v in args.__dict__.items():
@@ -781,28 +859,34 @@ def init(disable_multiple_dlogger=False):
 
     return args, device
 
-def load_data(args, device, get_file_stats=True):
-    logging.info('Generating/loading dataset...')
-    corpus = get_lm_corpus(args.data, args.cache_dir, args.dataset, args.vocab,
-                           vocab_size=args.vocab_size, refresh_cache=args.refresh_cache)
+def load_data(config, device, get_file_stats=True):
 
-    if args.no_train:
+    common_conf = config['common']
+    dataset_conf = config['dataset']
+    train_loader_conf = config['train']['loader']
+    eval_loader_conf = config['eval']['loader']
+
+    logging.info('Generating/loading dataset...')
+    corpus = get_lm_corpus(dataset_conf['data_dir'], dataset_conf['cache_dir'], dataset_conf['name'], dataset_conf['vocab'],
+                           vocab_size=dataset_conf['vocab_size'], refresh_cache=common_conf['refresh_cache'])
+
+    if common_conf['no_train']:
         logging.info('Exiting as no training was requested.')
         sys.exit(0)
 
-    if args.mem_len == 0: # default is 192
+    if train_loader_conf['mem_len'] == 0: # default is 192
         eval_mem_len = 0
     else:
-        eval_mem_len = args.mem_len + args.tgt_len - args.eval_tgt_len
+        eval_mem_len = train_loader_conf.mem_len + train_loader_conf.tgt_len - eval_loader_conf.tgt_len
 
-    train_itr = corpus.get_iterator('train', args.batch_size, args.tgt_len,
-                                  device=device, ext_len=args.ext_len)
-    valid_itr = corpus.get_iterator('valid', args.eval_batch_size,
-                                  args.eval_tgt_len, device=device,
-                                  mem_len=eval_mem_len, ext_len=args.ext_len)
-    test_itr = corpus.get_iterator('test', args.eval_batch_size,
-                                  args.eval_tgt_len, device=device,
-                                  mem_len=eval_mem_len, ext_len=args.ext_len)
+    train_itr = corpus.get_iterator('train', train_loader_conf['batch_size'], train_loader_conf['tgt_len'],
+                                  device=device, ext_len=train_loader_conf['ext_len'])
+    valid_itr = corpus.get_iterator('valid', eval_loader_conf['batch_size'],
+                                  eval_loader_conf['tgt_len'], device=device,
+                                  mem_len=eval_mem_len, ext_len=eval_loader_conf['ext_len'])
+    test_itr = corpus.get_iterator('test', eval_loader_conf['batch_size'],
+                                  eval_loader_conf['tgt_len'], device=device,
+                                  mem_len=eval_mem_len, ext_len=eval_loader_conf['ext_len'])
 
     file_stats = None
     if get_file_stats:
@@ -813,68 +897,91 @@ def load_data(args, device, get_file_stats=True):
     return  corpus.vocab, train_itr, valid_itr, test_itr, file_stats
 
 
-def create_or_load_model(args, device, ntokens)->Tuple[ArchaiModel, dict]:
+def create_or_load_model(config, args, device, ntokens)->Tuple[ArchaiModel, dict]:
+
+    train_config = config['train']
+    model_config = config['model']
+    dataset_conf = config['dataset']
+
+    mixed_qat = train_config['mixed_qat']
+    qat = train_config['qat']
+    pretrained_path = train_config['pretrained_path']
+    dataset_name = dataset_conf['name']
+
     # adaptive softmax / embedding
     cutoffs, tie_projs = [], [] # head cluster projection is never tied with embeddings
-    if args.adaptive:
-        assert args.dataset in ['wt103', 'wt2', 'lm1b'] or args.dataset.startswith('olx_')
-        if args.dataset in ['wt103', 'wt2'] or args.dataset.startswith('olx_'):
+    if model_config['adaptive']:
+        assert dataset_name in ['wt103', 'wt2', 'lm1b'] or dataset_conf['name'].startswith('olx_')
+        if dataset_name in ['wt103', 'wt2'] or dataset_name.startswith('olx_'):
             cutoffs = [19997, 39997, 199997, ntokens]
             tie_projs = [False] + [True] * (len(cutoffs)-1)
-        elif args.dataset == 'lm1b':
+        elif dataset_name == 'lm1b':
             cutoffs = [59997, 99997, 639997, ntokens]
             tie_projs = [False] + [False] * (len(cutoffs)-1)
         else:
-            raise RuntimeError(f'Dataset {args.dataset} not supported for set cutoffs and tie_projs')
+            raise RuntimeError(f'Dataset {dataset_name} not supported for set cutoffs and tie_projs')
 
-    model_config = {
-        'n_token': ntokens,
-        'n_layer': args.n_layer,
-        'n_head': args.n_head,
-        'd_model': args.d_model,
-        'd_head': args.d_head,
-        'd_inner': args.d_inner,
-        'dropout': args.dropout,
-        'dropatt': args.dropatt,
-        'dtype': None,
-        'tie_weight': args.tied,
-        'd_embed': args.d_embed,
-        'div_val': args.div_val,
-        'tie_projs': tie_projs,
-        'pre_lnorm': args.pre_lnorm,
-        'tgt_len': args.tgt_len,
-        'ext_len': args.ext_len,
-        'mem_len': args.mem_len,
-        'cutoffs': cutoffs,
-        'adaptive': args.adaptive,
-        'same_length': args.same_length,
-        'attn_type': args.attn_type,
-        'clamp_len': args.clamp_len,
-        'sample_softmax': args.sample_softmax,
 
-        'weight_init_type': args.init,
-        'weight_init_range': args.init_range,
-        'weight_init_std': args.init_std,
-        'proj_init_std': args.proj_init_std,
+    m_config = copy.deepcopy(model_config)
 
-        'primer_square': args.primer_square,
-        'primer_conv': args.primer_conv,
-        'use_cache': args.use_cache
-        }
+    # Adds additional info for logging model info
+    m_config['cutoffs'] = cutoffs
+    m_config['n_token'] = ntokens
+    m_config['dtype'] = None
+    m_config['tie_projs'] = tie_projs
+    m_config['sample_softmax'] = train_config['optimizer']['sample_softmax']
+    m_config['tgt_len'] = train_config['loader']['tgt_len']
+    m_config['ext_len'] = train_config['loader']['ext_len']
+    m_config['mem_len'] = train_config['loader']['mem_len']
 
-    if args.qat and not args.pretrained_path:
+    # model_config = {
+    #     'n_token': ntokens,
+    #     'n_layer': args.n_layer,
+    #     'n_head': args.n_head,
+    #     'd_model': args.d_model,
+    #     'd_head': args.d_head,
+    #     'd_inner': args.d_inner,
+    #     'dropout': args.dropout,
+    #     'dropatt': args.dropatt,
+    #     'dtype': None,
+    #     'tie_weight': args.tied,
+    #     'd_embed': args.d_embed,
+    #     'div_val': args.div_val,
+    #     'tie_projs': tie_projs,
+    #     'pre_lnorm': args.pre_lnorm,
+    #     'tgt_len': args.tgt_len,
+    #     'ext_len': args.ext_len,
+    #     'mem_len': args.mem_len,
+    #     'cutoffs': cutoffs,
+    #     'adaptive': args.adaptive,
+    #     'same_length': args.same_length,
+    #     'attn_type': args.attn_type,
+    #     'clamp_len': args.clamp_len,
+    #     'sample_softmax': args.sample_softmax,
+
+    #     'weight_init_type': args.init,
+    #     'weight_init_range': args.init_range,
+    #     'weight_init_std': args.init_std,
+    #     'proj_init_std': args.proj_init_std,
+
+    #     'primer_square': args.primer_square,
+    #     'primer_conv': args.primer_conv,
+    #     'use_cache': args.use_cache
+    #     }
+
+    if qat and not pretrained_path:
         logging.warning('QAT usually starts from a pretrained model. Check the --pretrained_path argument.')
 
-    if args.qat and args.mixed_qat:
+    if qat and mixed_qat:
         raise ValueError('QAT and Mixed QAT cannot be used at the same time.')
 
-    if args.pretrained_path:
+    if pretrained_path:
         logging.info('Overwriting the provided model config with the pretrained model config.')
-        model, model_config, _ = load_model_from_checkpoint(args.model_type, args.pretrained_path, on_cpu=False)
+        model, m_config, _ = load_model_from_checkpoint(model_config['model_type'], pretrained_path, on_cpu=False)
     else:
-        model = load_model_from_config(args.model_type, model_config)
+        model = load_model_from_config(m_config['model_type'], m_config)
 
-    if args.mixed_qat:
+    if mixed_qat:
         model = MixedQATModel(model)
 
     n_params = model.get_params()
@@ -883,55 +990,61 @@ def create_or_load_model(args, device, ntokens)->Tuple[ArchaiModel, dict]:
     logging.info('#params = {}'.format(n_all_param))
     logging.info('#non emb params = {}'.format(n_nonemb_param))
 
-    if args.qat:
+    if qat:
         model = prepare_with_qat(model, onnx_compatible=True)
 
-    return model, model_config
+    return model, m_config
 
-def create_optimizer(args, model):
+def create_optimizer(optim_conf, model):
     # optimizer
-    if args.optim.lower() == 'sgd':
-        if args.sample_softmax > 0:
+    optim = optim_conf['type']
+    sample_softmax = optim_conf['sample_softmax']
+    lr = optim_conf['lr']
+    weight_decay = optim_conf['weight_decay']
+    momentum = optim_conf['momentum']
+
+    if optim.lower() == 'sgd':
+        if sample_softmax > 0:
             dense_params, sparse_params = [], []
             for param in model.parameters():
                 if param.size() == model.word_emb.weight.size():
                     sparse_params.append(param)
                 else:
                     dense_params.append(param)
-            optimizer_sparse = optim.SGD(sparse_params, lr=args.lr * 2)
-            optimizer = optim.SGD(dense_params, lr=args.lr, momentum=args.mom)
+            optimizer_sparse = optim.SGD(sparse_params, lr=lr * 2)
+            optimizer = optim.SGD(dense_params, lr=lr, momentum=momentum)
         else:
-            optimizer = optim.SGD(model.parameters(), lr=args.lr,
-                                  momentum=args.mom)
+            optimizer = optim.SGD(model.parameters(), lr=lr,
+                                  momentum=momentum)
             optimizer_sparse = None
-    elif args.optim.lower() == 'adam':
-        if args.sample_softmax > 0:
+    elif optim.lower() == 'adam':
+        if sample_softmax > 0:
             dense_params, sparse_params = [], []
             for param in model.parameters():
                 if param.size() == model.word_emb.weight.size():
                     sparse_params.append(param)
                 else:
                     dense_params.append(param)
-            optimizer_sparse = optim.SparseAdam(sparse_params, lr=args.lr)
-            optimizer = optim.Adam(dense_params, lr=args.lr,
-                                   weight_decay=args.weight_decay)
+            optimizer_sparse = optim.SparseAdam(sparse_params, lr=lr)
+            optimizer = optim.Adam(dense_params, lr=lr,
+                                   weight_decay=weight_decay)
         else:
-            optimizer = optim.Adam(model.parameters(), lr=args.lr,
-                                   weight_decay=args.weight_decay)
+            optimizer = optim.Adam(model.parameters(), lr=lr,
+                                   weight_decay=weight_decay)
             optimizer_sparse = None
-    elif args.optim.lower() == 'adagrad':
-        optimizer = optim.Adagrad(model.parameters(), lr=args.lr)
+    elif optim.lower() == 'adagrad':
+        optimizer = optim.Adagrad(model.parameters(), lr=lr)
         optimizer_sparse = None
-    elif args.optim.lower() == 'lamb':
-        optimizer = lamb_optimizer.Lamb(model.parameters(), lr=args.lr,
-                              weight_decay=args.weight_decay)
+    elif optim.lower() == 'lamb':
+        optimizer = lamb_optimizer.Lamb(model.parameters(), lr=lr,
+                              weight_decay=weight_decay)
         optimizer_sparse = None
-    elif args.optim.lower() == 'jitlamb':
-        optimizer = lamb_optimizer.JITLamb(model.parameters(), lr=args.lr,
-                                 weight_decay=args.weight_decay)
+    elif optim.lower() == 'jitlamb':
+        optimizer = lamb_optimizer.JITLamb(model.parameters(), lr=lr,
+                                 weight_decay=weight_decay)
         optimizer_sparse = None
     else:
-        raise NotImplementedError(f'Optimizer {args.optim} is not implemented')
+        raise NotImplementedError(f'Optimizer {optim} is not implemented')
 
     return optimizer, optimizer_sparse
 
@@ -968,36 +1081,48 @@ def distributed_model(args, model, device):
     return para_model, model
 
 
-def create_scheduler(args, optimizer, optimizer_sparse):
+def create_scheduler(args, train_conf, optimizer, optimizer_sparse):
+
+    scheduler_conf = train_conf['lr_schedule']
+
     scheduler, scheduler_sparse = None, None
-    scheduler_name = args.scheduler_qat if args.qat else args.scheduler
+    scheduler_name = scheduler_conf['type_qat'] if train_conf['qat'] else scheduler_conf['type']
+    max_step_scheduler = scheduler_conf['max_step_scheduler']
+    warmup_step = scheduler_conf['warmup_step']
+    patience = scheduler_conf['patience']
+    eta_min = scheduler_conf['eta_min']
+    lr_min = scheduler_conf['lr_min']
+    decay_rate = scheduler_conf['decay_rate']
+
+    sample_softmax = train_conf['optimizer']['sample_softmax']
+    lr = train_conf['optimizer']['lr']
 
     # scheduler
     if scheduler_name == 'cosine':
-        if args.max_step_scheduler:
-            max_step = args.max_step_scheduler
+        if max_step_scheduler:
+            max_step = max_step_scheduler
         else:
-            max_step = args.max_step
+            max_step = train_conf['max_step']
 
         scheduler = optim.lr_scheduler.CosineAnnealingLR(
-            optimizer, max_step - args.warmup_step, eta_min=args.eta_min)
-        if args.sample_softmax > 0 and optimizer_sparse is not None:
+            optimizer, max_step - warmup_step, eta_min=eta_min)
+        if sample_softmax > 0 and optimizer_sparse is not None:
             scheduler_sparse = optim.lr_scheduler.CosineAnnealingLR(
-                optimizer_sparse, max_step - args.warmup_step,
-                eta_min=args.eta_min)
+                optimizer_sparse, max_step - warmup_step,
+                eta_min=eta_min)
         else:
             scheduler_sparse = None
     elif scheduler_name == 'inv_sqrt':
         # originally used for Transformer (in Attention is all you need)
         def lr_lambda(step):
             # return a multiplier instead of a learning rate
-            if step == 0 and args.warmup_step == 0:
+            if step == 0 and warmup_step == 0:
                 return 1.
             else:
-                return 1. / (step ** 0.5) if step > args.warmup_step \
-                    else step / (args.warmup_step ** 1.5)
+                return 1. / (step ** 0.5) if step > warmup_step \
+                    else step / (warmup_step ** 1.5)
         scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
-        if args.sample_softmax > 0 and optimizer_sparse is not None:
+        if sample_softmax > 0 and optimizer_sparse is not None:
             scheduler_sparse = optim.lr_scheduler.LambdaLR(
                 optimizer_sparse,
                 lr_lambda=lr_lambda
@@ -1006,25 +1131,25 @@ def create_scheduler(args, optimizer, optimizer_sparse):
             scheduler_sparse = None
     elif scheduler_name == 'dev_perf':
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, factor=args.decay_rate, patience=args.patience,
-            min_lr=args.lr_min,
+            optimizer, factor=decay_rate, patience=patience,
+            min_lr=lr_min,
             )
-        if args.sample_softmax > 0 and optimizer_sparse is not None:
+        if sample_softmax > 0 and optimizer_sparse is not None:
             scheduler_sparse = optim.lr_scheduler.ReduceLROnPlateau(
-                optimizer_sparse, factor=args.decay_rate, patience=args.patience,
-                min_lr=args.lr_min,
+                optimizer_sparse, factor=decay_rate, patience=patience,
+                min_lr=lr_min,
                 )
         else:
             scheduler_sparse = None
     elif scheduler_name == 'cyclic_cosine':
-        init_decay_epochs = int((args.max_step-args.warmup_step) / 2)
-        restart_interval = int((args.max_step-args.warmup_step) / 4)
+        init_decay_epochs = int((max_step-warmup_step) / 2)
+        restart_interval = int((max_step-warmup_step) / 4)
 
-        scheduler = CyclicCosineDecayLR(optimizer, init_decay_epochs, args.eta_min, restart_interval, 
-                                        warmup_epochs=args.warmup_step, warmup_start_lr=args.lr*0.01)
-        if args.sample_softmax > 0 and optimizer_sparse is not None:
-            scheduler_sparse = CyclicCosineDecayLR(optimizer_sparse, init_decay_epochs, args.eta_min, restart_interval, 
-                                        warmup_epochs=args.warmup_step, warmup_start_lr=args.lr*0.01)
+        scheduler = CyclicCosineDecayLR(optimizer, init_decay_epochs, eta_min, restart_interval, 
+                                        warmup_epochs=warmup_step, warmup_start_lr=lr*0.01)
+        if sample_softmax > 0 and optimizer_sparse is not None:
+            scheduler_sparse = CyclicCosineDecayLR(optimizer_sparse, init_decay_epochs, eta_min, restart_interval, 
+                                        warmup_epochs=warmup_step, warmup_start_lr=lr*0.01)
         else:
             scheduler_sparse = None
     elif scheduler_name == 'constant':
@@ -1033,9 +1158,12 @@ def create_scheduler(args, optimizer, optimizer_sparse):
     return scheduler, scheduler_sparse
 
 
-def train_main(args, device, train_itr, valid_itr, model, para_model, model_config,
+def train_main(args, conf, device, train_itr, valid_itr, model, para_model, model_config,
                 optimizer, optimizer_sparse, scheduler,
                 scheduler_sparse, scaler, vocab, valid_file_stats):
+
+    roll_seed = conf['common']['seed']
+
     train_step = 0
     start_epoch = 1
     last_batch = 0
@@ -1079,13 +1207,13 @@ def train_main(args, device, train_itr, valid_itr, model, para_model, model_conf
     try:
         for epoch in itertools.count(start=start_epoch):
             if args.roll: # enable random shifts in datasets
-                train_itr.roll(seed=args.seed + epoch)
+                train_itr.roll(seed=roll_seed + epoch)
             train_step, best_val_loss = train(
                 train_itr, valid_itr, model, para_model, model_config,
                 optimizer, optimizer_sparse, scheduler,
                 scheduler_sparse, scaler, vocab, epoch, last_batch,
                 last_iter, train_step, best_val_loss, meters,
-                device, args, valid_file_stats
+                device, args, conf, valid_file_stats
                 )
 
             last_batch = 0
@@ -1113,26 +1241,32 @@ def train_main(args, device, train_itr, valid_itr, model, para_model, model_conf
     return elapsed, best_val_loss, meters
 
 
-def evaluate_main(args, model, checkpoint_path:str, test_itr, test_file_stats):
+def evaluate_main(conf, model, checkpoint_path:str, test_itr, test_file_stats):
+
+    model_type = conf['model']['model_type']
+    no_eval = conf['eval']['no_eval']
+
+    dataset_name = conf['dataset']['name']
+
     n_params = model.get_params()
     summary = {
         'n_all_param': n_params['total'],
         'n_nonemb_param': n_params['non_embedding']
     }
 
-    if not args.no_eval and os.path.exists(checkpoint_path):
+    if not no_eval and os.path.exists(checkpoint_path):
         # Load the best saved model
-        model, _, _ = load_model_from_checkpoint(args.model_type, checkpoint_path, on_cpu=False)
+        model, _, _ = load_model_from_checkpoint(model_type, checkpoint_path, on_cpu=False)
 
         # Run on test data
         test_start_time = time.time()
-        node_metrix = evaluate(test_itr, model, args, eval_nomem=True)
+        node_metrix = evaluate(test_itr, model, conf, eval_nomem=True)
         test_metrix = EvalMetrics(test_file_stats.word_count, *node_metrix)
 
         test_elapsed = time.time() - test_start_time
 
         logging.info('=' * 100)
-        if args.dataset in ['enwik8', 'text8']:
+        if dataset_name in ['enwik8', 'text8']:
             logging.info('| End of training | test time: {:5.2f}s | test loss {:5.2f} | word ppl {:9.3f} | test bpc {:9.5f}'.format(
                 test_elapsed, test_metrix.avg_loss, test_metrix.word_ppl, test_metrix.bpc))
         else:
@@ -1156,7 +1290,7 @@ def evaluate_main(args, model, checkpoint_path:str, test_itr, test_file_stats):
             'test_word_ppl_nomem': test_metrix.word_ppl_nomem
             })
 
-        if args.dataset in ['enwik8', 'text8']:
+        if dataset_name in ['enwik8', 'text8']:
             summary['test_bits_per_character'] = test_metrix.bpc
             summary['test_bits_per_character_nomem'] = test_metrix.bpc_nomem
         else:
@@ -1167,18 +1301,39 @@ def evaluate_main(args, model, checkpoint_path:str, test_itr, test_file_stats):
 
 
 def main():
+
+    # Loads config file
+    conf = create_conf('/home/caiocesart/repos/archai_last/archai/nlp/confs/experiments/train_gpt2.yaml', 'bla', False)
+    Config.set_inst(conf)
+
+    # create experiment dir
+    create_dirs(conf, False)
+
+    print(conf)
+
+
     # get command line args
-    args, device = init()
+    args, device = init(conf)
+
+    use_qat = conf['train']['qat']
+    exp_dir = conf['common']['expdir']
+    experiment_name = conf['common']['experiment_name']
+
+    model_type = conf['model']['model_type']
+
+    dataset_name = conf['dataset']['name']
+    vocab_type = conf['dataset']['vocab']
+
 
     # load tokenizer and datasets
-    vocab, train_itr, valid_itr, test_itr, file_stats = load_data(args, device)
+    vocab, train_itr, valid_itr, test_itr, file_stats = load_data(conf, device)
 
     # create model
     ntokens = len(vocab)
-    model, model_config = create_or_load_model(args, device, ntokens)
+    model, model_config = create_or_load_model(conf, args, device, ntokens)
 
     # create optimizer
-    optimizer, optimizer_sparse = create_optimizer(args, model)
+    optimizer, optimizer_sparse = create_optimizer(conf['train']['optimizer'], model)
 
     model = model.to(device)
 
@@ -1189,14 +1344,14 @@ def main():
     para_model, model = distributed_model(args, model, device)
 
     # create scheduler
-    scheduler, scheduler_sparse = create_scheduler(args, optimizer, optimizer_sparse)
+    scheduler, scheduler_sparse = create_scheduler(args, conf['train'], optimizer, optimizer_sparse)
 
-    training_time, best_val_loss, meters = train_main(args, device, train_itr, valid_itr, model, para_model,
+    training_time, best_val_loss, meters = train_main(args, conf, device, train_itr, valid_itr, model, para_model,
         model_config, optimizer, optimizer_sparse, scheduler,
         scheduler_sparse, scaler, vocab, file_stats[1])
 
-    checkpoint_path = os.path.join(args.work_dir, 'checkpoint_best.pt' if not args.qat else 'qat_checkpoint_best.pt')
-    summary = evaluate_main(args, model, checkpoint_path, test_itr, file_stats[-1])
+    checkpoint_path = os.path.join(exp_dir, 'checkpoint_best.pt' if not use_qat else 'qat_checkpoint_best.pt')
+    summary = evaluate_main(conf, model, checkpoint_path, test_itr, file_stats[-1])
 
     logging.info(f'Training time: {(training_time / 60):.2f} minutes')
     logging.info(f'Training throughput: {meters["train_throughput"].avg:.2f} tok/s')
@@ -1206,16 +1361,16 @@ def main():
     input_ids = input_ids[:1,:].to('cpu') # make it batch size of one
     pt_ops_mem, pt_ops_time, pt_ops_flops, pt_inf_time = ml_perf_utils.inference_stats(model, input_ids=input_ids, labels=None, mems=None)
     _, process_mem = ml_perf_utils.model_memory(
-        lambda: load_model_from_checkpoint(args.model_type, checkpoint_path, on_cpu=True))
+        lambda: load_model_from_checkpoint(model_type, checkpoint_path, on_cpu=True))
 
     summary.update({
-        'experiment_name': args.experiment_name,
+        'experiment_name': experiment_name,
         'run_date': str(datetime.now()),
         'input_ids.shape(0)': input_ids.shape[0],
         'input_ids.shape(1)': input_ids.shape[1],
-        'dataset': args.dataset,
+        'dataset': dataset_name,
         'vocab_size': ntokens,
-        'vocab_type': args.vocab,
+        'vocab_type': vocab_type,
         'train_throughput': meters['train_throughput'].avg,
         'train_elapsed': training_time / 60.0,
         'valid_loss': best_val_loss,
@@ -1245,15 +1400,15 @@ def main():
 
     logging.info(pprint.pformat(summary))
 
-    utils.save_as_yaml(summary, os.path.join(args.work_dir, 'summary.yaml'))
-    utils.save_as_yaml(model_config, os.path.join(args.work_dir, 'model_config.yaml'))
+    utils.save_as_yaml(summary, os.path.join(exp_dir, 'summary.yaml'))
+    utils.save_as_yaml(model_config, os.path.join(exp_dir, 'model_config.yaml'))
 
-    summary_csv_filepath = os.path.join(args.work_dir, 'summaries.tsv')
+    summary_csv_filepath = os.path.join(exp_dir, 'summaries.tsv')
     with nv_distributed.sync_workers() as rank:
         if rank == 0:
             utils.append_csv_file(summary_csv_filepath, list(summary.items()))
 
-    logging.info(f'Output dir: {args.work_dir}')
+    logging.info(f'Output dir: {exp_dir}')
     dllogger.log(step=tuple(), data=summary)
 
     if args.post_qat:
@@ -1264,7 +1419,7 @@ def main():
         }
 
         # Loads the model from the best pre-trained checkpoint
-        model, model_config, _ = load_model_from_checkpoint(args.model_type, checkpoint_path, replace_model_config=replace_model_config, on_cpu=False)
+        model, model_config, _ = load_model_from_checkpoint(model_type, checkpoint_path, replace_model_config=replace_model_config, on_cpu=False)
 
         # Prepares the model with QAT (also allows for distributed training)
         model = prepare_with_qat(model, onnx_compatible=True)
