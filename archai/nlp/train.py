@@ -47,83 +47,83 @@ from archai.common.config import Config
 
 
 def parse_args(new_config):
-    parent_parser = argparse.ArgumentParser(
-        description='PyTorch Transformer-XL Language Model',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        add_help=False,
-        )
+    # parent_parser = argparse.ArgumentParser(
+    #     description='PyTorch Transformer-XL Language Model',
+    #     formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    #     add_help=False,
+    #     )
 
-    parser = argparse.ArgumentParser(parents=[parent_parser], add_help=True)
-    cfg_parser = argparse.ArgumentParser(parents=[parent_parser], add_help=False)
+    # parser = argparse.ArgumentParser(parents=[parent_parser], add_help=True)
+    # cfg_parser = argparse.ArgumentParser(parents=[parent_parser], add_help=False)
 
-    # if debugging from VS then use toy mode otherwise use 1 GPU/FP32 mode to be on same side
-    default_config = 'dgx1_1gpu_fp32'
-    if utils.is_debugging():
-        default_config = 'toy'
+    # # if debugging from VS then use toy mode otherwise use 1 GPU/FP32 mode to be on same side
+    # default_config = 'dgx1_1gpu_fp32'
+    # if utils.is_debugging():
+    #     default_config = 'toy'
 
-    cfg_parser.add_argument('--config', default=default_config) # use 'dgx1_8gpu_fp16' for V100 16GB, dgx1_1gpu_fp16, default
-    cfg_parser.add_argument('--config_file', default='wt103_base.yaml')
+    # cfg_parser.add_argument('--config', default=default_config) # use 'dgx1_8gpu_fp16' for V100 16GB, dgx1_1gpu_fp16, default
+    # cfg_parser.add_argument('--config_file', default='wt103_base.yaml')
 
-    config_args, _ = cfg_parser.parse_known_args()
+    # config_args, _ = cfg_parser.parse_known_args()
 
-    if config_args.config is not None and config_args.config_file is not None:
-        config_file_path = utils.full_path(os.path.join('.', 'archai', 'nlp', config_args.config_file))
-        with open(config_file_path) as f:
-            config = yaml.load(f, Loader=yaml.FullLoader)[config_args.config]['train']
-    else:
-        config = {}
+    # if config_args.config is not None and config_args.config_file is not None:
+    #     config_file_path = utils.full_path(os.path.join('.', 'archai', 'nlp', config_args.config_file))
+    #     with open(config_file_path) as f:
+    #         config = yaml.load(f, Loader=yaml.FullLoader)[config_args.config]['train']
+    # else:
+    #     config = {}
 
-    general = parser.add_argument_group('general setup')
-    general.add_argument('--work_dir', default='~/logdir', type=str,
-                         help='Directory for the results')
-    general.add_argument('--experiment_name', default='mem_transformer', type=str,
-                         help='Directory for the results')
-    general.add_argument('--append_dataset', action='store_true',
-                         help='Automatically append dataset name to work_dir')
-    general.add_argument('--append_time', action='store_true',
-                         help='Automatically append current time to work_dir')
-    general.add_argument('--cuda', action='store_true',
-                         help='Run training on a GPU using CUDA')
-    general.add_argument('--fp16', action='store_true',
-                         help='Run training in fp16/mixed precision')
-    general.add_argument('--restart', type=str, default='',
-                         help='Restart training from the saved checkpoint')
-    general.add_argument('--pretrained_path', type=str, default='',
-                         help='Absolute or relative pretrained model path for finetuning or QAT')
-    general.add_argument('--debug', action='store_true', default=None,
-                         help='Run in debug mode (do not create exp dir)')
-    general.add_argument('--log_all_ranks', action='store_true',
-                         help='Enable logging from all distributed ranks')
-    general.add_argument('--dllog_file', type=str, default='train_log.json',
-                         help='Name of the DLLogger output file')
-    general.add_argument('--txtlog_file', type=str, default='train_log.log',
-                         help='Name of the txt log file')
-    general.add_argument('--save_all', action='store_true',
-                         help='Save all checkpoints')
-    general.add_argument('--no_env', action='store_false',
-                         help='Do not print info on execution env')
-    general.add_argument('--no_train', action='store_false', default=False,
-                         help='Only generate dataset caches, no training. Can be run on without GPU.')
-    general.add_argument('--no_eval', action='store_true',
-                         help='Disable model evaluation')
-    general.add_argument('--refresh_cache', action='store_false', default=False,
-                         help='Ignores any existing cache and overwrites it with new one')
-    general.add_argument('--log_interval', type=int, default=10,
-                         help='Report interval')
-    general.add_argument('--target_throughput', type=float, default=None,
-                         help='Target training throughput (for benchmarking)')
-    general.add_argument('--target_perplexity', type=float, default=None,
-                         help='Target validation perplexity (for benchmarking)')
-    general.add_argument('--apex_amp_opt_level', type=str, default='O2',
-                         choices=['O0', 'O1', 'O2', 'O3'],
-                         help='Optimization level for apex amp')
-    general.add_argument('--affinity', type=str,
-                         default='socket_unique_interleaved',
-                         choices=['socket', 'single', 'single_unique',
-                                  'socket_unique_interleaved',
-                                  'socket_unique_continuous',
-                                  'disabled'],
-                         help='type of CPU affinity')
+    # general = parser.add_argument_group('general setup')
+    # general.add_argument('--work_dir', default='~/logdir', type=str,
+    #                      help='Directory for the results')
+    # general.add_argument('--experiment_name', default='mem_transformer', type=str,
+    #                      help='Directory for the results')
+    # general.add_argument('--append_dataset', action='store_true',
+    #                      help='Automatically append dataset name to work_dir')
+    # general.add_argument('--append_time', action='store_true',
+    #                      help='Automatically append current time to work_dir')
+    # general.add_argument('--cuda', action='store_true',
+    #                      help='Run training on a GPU using CUDA')
+    # general.add_argument('--fp16', action='store_true',
+    #                      help='Run training in fp16/mixed precision')
+    # general.add_argument('--restart', type=str, default='',
+    #                      help='Restart training from the saved checkpoint')
+    # general.add_argument('--pretrained_path', type=str, default='',
+    #                      help='Absolute or relative pretrained model path for finetuning or QAT')
+    # general.add_argument('--debug', action='store_true', default=None,
+    #                      help='Run in debug mode (do not create exp dir)')
+    # general.add_argument('--log_all_ranks', action='store_true',
+    #                      help='Enable logging from all distributed ranks')
+    # general.add_argument('--dllog_file', type=str, default='train_log.json',
+    #                      help='Name of the DLLogger output file')
+    # general.add_argument('--txtlog_file', type=str, default='train_log.log',
+    #                      help='Name of the txt log file')
+    # general.add_argument('--save_all', action='store_true',
+    #                      help='Save all checkpoints')
+    # general.add_argument('--no_env', action='store_false',
+    #                      help='Do not print info on execution env')
+    # general.add_argument('--no_train', action='store_false', default=False,
+    #                      help='Only generate dataset caches, no training. Can be run on without GPU.')
+    # general.add_argument('--no_eval', action='store_true',
+    #                      help='Disable model evaluation')
+    # general.add_argument('--refresh_cache', action='store_false', default=False,
+    #                      help='Ignores any existing cache and overwrites it with new one')
+    # general.add_argument('--log_interval', type=int, default=10,
+    #                      help='Report interval')
+    # general.add_argument('--target_throughput', type=float, default=None,
+    #                      help='Target training throughput (for benchmarking)')
+    # general.add_argument('--target_perplexity', type=float, default=None,
+    #                      help='Target validation perplexity (for benchmarking)')
+    # general.add_argument('--apex_amp_opt_level', type=str, default='O2',
+    #                      choices=['O0', 'O1', 'O2', 'O3'],
+    #                      help='Optimization level for apex amp')
+    # general.add_argument('--affinity', type=str,
+    #                      default='socket_unique_interleaved',
+    #                      choices=['socket', 'single', 'single_unique',
+    #                               'socket_unique_interleaved',
+    #                               'socket_unique_continuous',
+    #                               'disabled'],
+    #                      help='type of CPU affinity')
 
     # dataset = parser.add_argument_group('dataset setup')
     # dataset.add_argument('--data', type=str, default=None,
@@ -263,29 +263,29 @@ def parse_args(new_config):
     # training.add_argument('--swap_mem', action='store_true',
     #                       help='Swap memory tensors to cpu')
 
-    val = parser.add_argument_group('validation setup')
-    val.add_argument('--eval_tgt_len', type=int, default=192,
-                     help='Number of tokens to predict for evaluation')
-    val.add_argument('--eval_batch_size', type=int, default=16,
-                     help='Eval batch size')
-    val.add_argument('--eval_max_steps', type=int, default=-1,
-                     help='Max eval steps')
-    val.add_argument('--eval_interval', type=int, default=5000,
-                     help='Evaluation interval')
+    # val = parser.add_argument_group('validation setup')
+    # val.add_argument('--eval_tgt_len', type=int, default=192,
+    #                  help='Number of tokens to predict for evaluation')
+    # val.add_argument('--eval_batch_size', type=int, default=16,
+    #                  help='Eval batch size')
+    # val.add_argument('--eval_max_steps', type=int, default=-1,
+    #                  help='Max eval steps')
+    # val.add_argument('--eval_interval', type=int, default=5000,
+    #                  help='Evaluation interval')
 
-    dist = parser.add_argument_group('distributed setup')
-    dist.add_argument('--local_rank',  type=int,
-                      default=os.getenv('LOCAL_RANK', 0),
-                      help='Used for multi-process training.')
+    # dist = parser.add_argument_group('distributed setup')
+    # dist.add_argument('--local_rank',  type=int,
+    #                   default=os.getenv('LOCAL_RANK', 0),
+    #                   help='Used for multi-process training.')
 
-    post = parser.add_argument_group('post-processing setup')
-    post.add_argument('--dynamic_quantization', action='store_true',
-                      help='Dynamic quantization')
-    post.add_argument('--post_qat', action='store_true',
-                      help='Perform QAT after training the model')
+    # # post = parser.add_argument_group('post-processing setup')
+    # # post.add_argument('--dynamic_quantization', action='store_true',
+    # #                   help='Dynamic quantization')
+    # # post.add_argument('--post_qat', action='store_true',
+    # #                   help='Perform QAT after training the model')
 
-    parser.set_defaults(**config)
-    args, _ = parser.parse_known_args()
+    # parser.set_defaults(**config)
+    # args, _ = parser.parse_known_args()
 
     # args.tied = not args.not_tied
 
@@ -305,8 +305,8 @@ def parse_args(new_config):
         raise RuntimeError('Extended context length must be non-negative')
 
     # default mem_len==192, eval_tgt_len==192, tgt_len==192
-    if args.mem_len == 0:
-        if args.eval_tgt_len > ext_len + tgt_len:
+    if mem_len == 0:
+        if eval_tgt_len > ext_len + tgt_len:
             raise RuntimeError('eval_tgt_len should be <= tgt_len + ext_len; '
                                f'eval_tgt_len: {eval_tgt_len}, '
                                f'tgt_len: {tgt_len}, '
@@ -324,15 +324,16 @@ def parse_args(new_config):
     if new_config['common']['debug'] is None:
         new_config['common']['debug'] = utils.is_debugging()
 
-    args.config = config_args.config
+    # args.config = config_args.config
 
     return args
 
 
-def save_checkpoint(args, model, model_config, optimizer, scheduler, scaler,
+def save_checkpoint(conf, model, model_config, optimizer, scheduler, scaler,
                     vocab, epoch, batch, last_iter, train_step, best_val_loss,
                     is_best, work_dir, prefix=''):
-    if args.fp16:
+
+    if conf['common']['fp16']:
         amp_state = scaler.state_dict()
     else:
         amp_state = None
@@ -342,7 +343,7 @@ def save_checkpoint(args, model, model_config, optimizer, scheduler, scaler,
         model = model.model
 
     state = {
-        'args': args,
+        'args': conf,
         'model_config': model_config,
         'model_state': model.state_dict(),
         'optimizer_state': optimizer.state_dict(),
@@ -373,22 +374,22 @@ def save_checkpoint(args, model, model_config, optimizer, scheduler, scaler,
                 shutil.copy(last_chkpt_path, best_chkpt_path)
 
             # save every checkpoint if save_all is true
-            if args.save_all:
+            if conf['common']['save_all']:
                 step_chkpt_fname = f'{prefix}checkpoint_{train_step}.pt'
                 step_chkpt_path = os.path.join(work_dir, step_chkpt_fname)
                 logging.info(f'Saving checkpoint to {step_chkpt_path}')
                 shutil.copy(last_chkpt_path, step_chkpt_path)
 
-def update_dropout(m, args):
+def update_dropout(m, dropout_rate):
     classname = m.__class__.__name__
     if classname.find('Dropout') != -1:
         if hasattr(m, 'p'):
-            m.p = args.dropout
+            m.p = dropout_rate
 
 
-def update_dropatt(m, args):
+def update_dropatt(m, dropout_rate):
     if hasattr(m, 'dropatt'):
-        m.dropatt.p = args.dropatt
+        m.dropatt.p = dropout_rate
 
 
 def evaluate(eval_iter, model, conf, eval_nomem=True):
@@ -422,6 +423,7 @@ def evaluate(eval_iter, model, conf, eval_nomem=True):
     with torch.no_grad():
         mems = None
         for batches, (input_ids, labels, seq_len, warm) in enumerate(eval_iter):
+
             steps += 1
             if eval_max_steps > 0 and i >= eval_max_steps:
                 break
@@ -527,19 +529,24 @@ def train_iteration(model, i, mems, input_ids_chunks, labels_chunks, scaler,
 def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
           optimizer_sparse, scheduler, scheduler_sparse, scaler, vocab, epoch,
           last_batch, last_iter, train_step, best_val_loss, meters,
-          device, args, conf, valid_file_stats):
+          device, conf, valid_file_stats):
+
+    optim_conf = conf['train']['optimizer']
+    scheduler_conf = conf['train']['lr_schedule']
 
     expdir = conf['common']['expdir']
     use_fp16 = conf['common']['fp16']
+    log_interval = conf['common']['log_interval']
 
     dataset_name = conf['dataset']['name']
 
     use_qat = conf['train']['qat']
     batch_chunk = conf['train']['batch_chunk']
     train_varlen = conf['train']['loader']['varlen']
+    train_max_step = conf['train']['max_step']
 
-    optim_conf = conf['train']['optimizer']
-    scheduler_conf = conf['train']['lr_schedule']
+    eval_interval = conf['eval']['interval']
+    no_eval = conf['eval']['no_eval']
 
     clip_amount = optim_conf['clip']
     inital_lr = optim_conf['lr']
@@ -626,7 +633,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             if scheduler_sparse:
                 scheduler_sparse.step(train_step)
 
-        if train_step % args.log_interval == 0:
+        if train_step % log_interval == 0:
             cur_loss = train_loss / log_step
             cur_loss = nv_distributed.all_reduce_item(cur_loss, op='mean')
             train_loss = 0
@@ -674,11 +681,11 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             logging.info(log_str)
             dllogger.log(step=tuple([train_step]), data=dllogger_data)
 
-        do_periodic_eval = train_step % args.eval_interval == 0
-        is_final_step = train_step == args.max_step
+        do_periodic_eval = train_step % eval_interval == 0
+        is_final_step = train_step == train_max_step
         interrupted = False #timeout_handler.interrupted
 
-        if (do_periodic_eval or is_final_step or interrupted) and not args.no_eval:
+        if (do_periodic_eval or is_final_step or interrupted) and not no_eval:
             eval_start_time = time.time()
             node_metrix = evaluate(valid_itr, model, conf, eval_nomem=False)
             val_metrix = EvalMetrics(valid_file_stats.word_count, *node_metrix)
@@ -686,7 +693,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
             logging.info('-' * 100)
             log_str = '| Eval {:3d} at step {:>8d} | time: {:5.2f}s ' \
                       '| loss {:5.2f} | word ppl {:5.2f}'.format(
-                          train_step // args.eval_interval,
+                          train_step // eval_interval,
                           train_step,
                           (time.time() - eval_start_time),
                           val_metrix.avg_loss, val_metrix.word_ppl
@@ -727,7 +734,7 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
                 model_to_save = model_float
                 prefix = 'qat_'
 
-            save_checkpoint(args, model_to_save, model_config, optimizer, scheduler,
+            save_checkpoint(conf, model_to_save, model_config, optimizer, scheduler,
                             scaler, vocab, epoch, batch, last_iter,
                             train_step, best_val_loss, is_best,
                             expdir, prefix=prefix)
@@ -753,7 +760,8 @@ def train(train_itr, valid_itr, model, para_model, model_config, optimizer,
 def init(config, disable_multiple_dlogger=False):
     exp_utils.script_init()
 
-    args = parse_args(config)
+    # args = parse_args(config)
+    args = None
 
     dataroot = config['dataset']['dataroot']
     cache_dir = config['dataset']['cache_dir']
@@ -768,6 +776,7 @@ def init(config, disable_multiple_dlogger=False):
     is_toy = config['common']['toy']
     is_debug = config['common']['debug']
     seed = config['common']['seed']
+    no_env = config['common']['no_env']
 
     pretrained_path = config['train']['pretrained_path']
     local_batch_size = config['train']['loader']['local_batch_size']
@@ -784,7 +793,7 @@ def init(config, disable_multiple_dlogger=False):
     #     print(f'{args.local_rank}: thread affinity: {affinity}')
 
     # Initialize device and distributed backend
-    torch.cuda.set_device(args.local_rank)
+    # torch.cuda.set_device(args.local_rank)
     l2_promote()
     device = torch.device('cuda' if use_cuda else 'cpu')
     nv_distributed.init_distributed(use_cuda)
@@ -838,12 +847,12 @@ def init(config, disable_multiple_dlogger=False):
         logging.info(f"--local_batch_size was set, adjusting global batch size"
                      f" to {config['train']['loader']['batch_size']} (local_batch_size * world_size)")
 
-    logging.info(args)
-    dllogger.log(step='PARAMETER', data=vars(args))
+    # logging.info(args)
+    # dllogger.log(step='PARAMETER', data=vars(args))
 
     logging.info(f'world size: {nv_distributed.get_world_size()}')
 
-    if not is_debug and not args.no_env:
+    if not is_debug and not no_env:
         log_env_info()
 
     #register_ignoring_timeout_handler()
@@ -852,10 +861,10 @@ def init(config, disable_multiple_dlogger=False):
     np.random.seed(seed)
     torch.manual_seed(seed)
 
-    logging.info('=' * 100)
-    for k, v in args.__dict__.items():
-        logging.info('    - {} : {}'.format(k, v))
-    logging.info('=' * 100)
+    # logging.info('=' * 100)
+    # for k, v in args.__dict__.items():
+    #     logging.info('    - {} : {}'.format(k, v))
+    # logging.info('=' * 100)
 
     return args, device
 
@@ -866,6 +875,14 @@ def load_data(config, device, get_file_stats=True):
     train_loader_conf = config['train']['loader']
     eval_loader_conf = config['eval']['loader']
 
+    train_batch_size = train_loader_conf['batch_size']
+    tgt_len = train_loader_conf['tgt_len']
+    mem_len = train_loader_conf['mem_len']
+    ext_len = train_loader_conf['ext_len']
+
+    eval_batch_size = eval_loader_conf['batch_size']
+    eval_tgt_len = eval_loader_conf['tgt_len']
+
     logging.info('Generating/loading dataset...')
     corpus = get_lm_corpus(dataset_conf['data_dir'], dataset_conf['cache_dir'], dataset_conf['name'], dataset_conf['vocab'],
                            vocab_size=dataset_conf['vocab_size'], refresh_cache=common_conf['refresh_cache'])
@@ -874,19 +891,19 @@ def load_data(config, device, get_file_stats=True):
         logging.info('Exiting as no training was requested.')
         sys.exit(0)
 
-    if train_loader_conf['mem_len'] == 0: # default is 192
+    if mem_len == 0: # default is 192
         eval_mem_len = 0
     else:
-        eval_mem_len = train_loader_conf.mem_len + train_loader_conf.tgt_len - eval_loader_conf.tgt_len
+        eval_mem_len = mem_len + tgt_len - eval_tgt_len
 
-    train_itr = corpus.get_iterator('train', train_loader_conf['batch_size'], train_loader_conf['tgt_len'],
-                                  device=device, ext_len=train_loader_conf['ext_len'])
-    valid_itr = corpus.get_iterator('valid', eval_loader_conf['batch_size'],
-                                  eval_loader_conf['tgt_len'], device=device,
-                                  mem_len=eval_mem_len, ext_len=eval_loader_conf['ext_len'])
-    test_itr = corpus.get_iterator('test', eval_loader_conf['batch_size'],
-                                  eval_loader_conf['tgt_len'], device=device,
-                                  mem_len=eval_mem_len, ext_len=eval_loader_conf['ext_len'])
+    train_itr = corpus.get_iterator('train', train_batch_size, tgt_len,
+                                  device=device, ext_len=ext_len)
+    valid_itr = corpus.get_iterator('valid', eval_batch_size,
+                                  eval_tgt_len, device=device,
+                                  mem_len=eval_mem_len, ext_len=ext_len)
+    test_itr = corpus.get_iterator('test', eval_batch_size,
+                                  eval_tgt_len, device=device,
+                                  mem_len=eval_mem_len, ext_len=ext_len)
 
     file_stats = None
     if get_file_stats:
@@ -933,6 +950,8 @@ def create_or_load_model(config, args, device, ntokens)->Tuple[ArchaiModel, dict
     m_config['tgt_len'] = train_config['loader']['tgt_len']
     m_config['ext_len'] = train_config['loader']['ext_len']
     m_config['mem_len'] = train_config['loader']['mem_len']
+
+    print(f'Model config: {m_config}')
 
     # model_config = {
     #     'n_token': ntokens,
@@ -997,13 +1016,13 @@ def create_or_load_model(config, args, device, ntokens)->Tuple[ArchaiModel, dict
 
 def create_optimizer(optim_conf, model):
     # optimizer
-    optim = optim_conf['type']
+    optim_type = optim_conf['type']
     sample_softmax = optim_conf['sample_softmax']
     lr = optim_conf['lr']
     weight_decay = optim_conf['weight_decay']
     momentum = optim_conf['momentum']
 
-    if optim.lower() == 'sgd':
+    if optim_type.lower() == 'sgd':
         if sample_softmax > 0:
             dense_params, sparse_params = [], []
             for param in model.parameters():
@@ -1017,7 +1036,7 @@ def create_optimizer(optim_conf, model):
             optimizer = optim.SGD(model.parameters(), lr=lr,
                                   momentum=momentum)
             optimizer_sparse = None
-    elif optim.lower() == 'adam':
+    elif optim_type.lower() == 'adam':
         if sample_softmax > 0:
             dense_params, sparse_params = [], []
             for param in model.parameters():
@@ -1032,46 +1051,51 @@ def create_optimizer(optim_conf, model):
             optimizer = optim.Adam(model.parameters(), lr=lr,
                                    weight_decay=weight_decay)
             optimizer_sparse = None
-    elif optim.lower() == 'adagrad':
+    elif optim_type.lower() == 'adagrad':
         optimizer = optim.Adagrad(model.parameters(), lr=lr)
         optimizer_sparse = None
-    elif optim.lower() == 'lamb':
+    elif optim_type.lower() == 'lamb':
         optimizer = lamb_optimizer.Lamb(model.parameters(), lr=lr,
                               weight_decay=weight_decay)
         optimizer_sparse = None
-    elif optim.lower() == 'jitlamb':
+    elif optim_type.lower() == 'jitlamb':
         optimizer = lamb_optimizer.JITLamb(model.parameters(), lr=lr,
                                  weight_decay=weight_decay)
         optimizer_sparse = None
     else:
-        raise NotImplementedError(f'Optimizer {optim} is not implemented')
+        raise NotImplementedError(f'Optimizer {optim_type} is not implemented')
 
     return optimizer, optimizer_sparse
 
 
-def create_grad_scaler(args, model, optimizer):
+def create_grad_scaler(use_fp16, model, optimizer):
     scaler = None
-    if args.fp16:
+    if use_fp16:
         scaler = torch.cuda.amp.GradScaler()
     return scaler
 
 
-def distributed_model(args, model, device):
+def distributed_model(conf, args, model, device):
     # by default this argument is not used, instead we spawn multiple instances
     # using command line:
     # python -m torch.distributed.launch --nproc_per_node="$2" train.py \
     #         --config_file wt103_base.yaml \
     #         "${@:3}"
-    if args.multi_gpu == 'ddp' and torch.distributed.is_initialized():
+
+    multi_gpu = conf['common']['multi_gpu']
+    batch_chunk = conf['train']['batch_chunk']
+    gpu0_bsz = conf['train']['gpu0_bsz']
+
+    if multi_gpu == 'ddp' and torch.distributed.is_initialized():
         para_model = DistributedDataParallel(model,
                                              device_ids=[args.local_rank],
                                              output_device=args.local_rank,
                                              broadcast_buffers=False,
                                              find_unused_parameters=utils.is_debugging(),
                                              )
-    elif args.multi_gpu == 'dp':
-        if args.gpu0_bsz >= 0:
-            para_model = BalancedDataParallel(args.gpu0_bsz // args.batch_chunk,
+    elif multi_gpu == 'dp':
+        if gpu0_bsz >= 0:
+            para_model = BalancedDataParallel(gpu0_bsz // batch_chunk,
                                               model, dim=1).to(device)
         else:
             para_model = nn.DataParallel(model, dim=1).to(device)
@@ -1081,7 +1105,7 @@ def distributed_model(args, model, device):
     return para_model, model
 
 
-def create_scheduler(args, train_conf, optimizer, optimizer_sparse):
+def create_scheduler(train_conf, optimizer, optimizer_sparse):
 
     scheduler_conf = train_conf['lr_schedule']
 
@@ -1158,11 +1182,25 @@ def create_scheduler(args, train_conf, optimizer, optimizer_sparse):
     return scheduler, scheduler_sparse
 
 
-def train_main(args, conf, device, train_itr, valid_itr, model, para_model, model_config,
+def train_main(conf, device, train_itr, valid_itr, model, para_model, model_config,
                 optimizer, optimizer_sparse, scheduler,
                 scheduler_sparse, scaler, vocab, valid_file_stats):
 
     roll_seed = conf['common']['seed']
+    expdir = conf['common']['expdir']
+    use_fp16 = conf['common']['fp16']
+    restart = conf['common']['restart']
+
+    train_max_step = conf['train']['max_step']
+    mem_len = conf['train']['loader']['mem_len']
+    tgt_len = conf['train']['loader']['tgt_len']
+    use_roll = conf['train']['loader']['roll']
+
+    model_type = conf['model']['model_type']
+    dropout_rate = conf['model']['dropout']
+    dropatt_rate = conf['model']['dropatt']
+
+    dynamic_quant = conf['post_processing']['dynamic_quantization']
 
     train_step = 0
     start_epoch = 1
@@ -1170,12 +1208,12 @@ def train_main(args, conf, device, train_itr, valid_itr, model, para_model, mode
     last_iter = 0
     best_val_loss = None
 
-    if args.restart:
+    if restart:
         try:
-            model, model_config, checkpoint = load_model_from_checkpoint(args.model_type, args.restart, on_cpu=False)
+            model, model_config, checkpoint = load_model_from_checkpoint(model_type, restart, on_cpu=False)
             optimizer.load_state_dict(checkpoint['optimizer_state'])
             scheduler.load_state_dict(checkpoint['scheduler_state'])
-            if args.fp16:
+            if use_fp16:
                 scaler.load_state_dict(checkpoint['amp_state'])
             train_step = checkpoint['train_step']
             start_epoch = checkpoint['epoch']
@@ -1183,20 +1221,20 @@ def train_main(args, conf, device, train_itr, valid_itr, model, para_model, mode
             last_iter = checkpoint['last_iter']
             best_val_loss = checkpoint['best_val_loss']
 
-            if train_step >= args.max_step:
+            if train_step >= train_max_step:
                 logging.info(f'Loaded checkpoint after {train_step} steps, but '
                              f'this run was scheduled for a total of '
-                             f'{args.max_step} steps, exiting')
+                             f'{train_max_step} steps, exiting')
                 sys.exit(1)
 
-            model.apply(functools.partial(update_dropout, args=args))
-            model.apply(functools.partial(update_dropatt, args=args))
+            model.apply(functools.partial(update_dropout, dropout_rate))
+            model.apply(functools.partial(update_dropatt, dropatt_rate))
         except FileNotFoundError:
-            logging.info(f'Could not load checkpoint from {args.restart}, '
+            logging.info(f'Could not load checkpoint from {restart}, '
                          f'starting training from random init')
 
     meters = {}
-    warmup = args.mem_len // args.tgt_len + 2
+    warmup = mem_len // tgt_len + 2
     meters['train_throughput'] = AverageMeter(warmup=warmup)
     ###########################################################################
     # Train
@@ -1206,31 +1244,31 @@ def train_main(args, conf, device, train_itr, valid_itr, model, para_model, mode
     start_time = time.time()
     try:
         for epoch in itertools.count(start=start_epoch):
-            if args.roll: # enable random shifts in datasets
+            if use_roll: # enable random shifts in datasets
                 train_itr.roll(seed=roll_seed + epoch)
             train_step, best_val_loss = train(
                 train_itr, valid_itr, model, para_model, model_config,
                 optimizer, optimizer_sparse, scheduler,
                 scheduler_sparse, scaler, vocab, epoch, last_batch,
                 last_iter, train_step, best_val_loss, meters,
-                device, args, conf, valid_file_stats
+                device, conf, valid_file_stats
                 )
 
             last_batch = 0
             last_iter = 0
 
-            if train_step == args.max_step:
+            if train_step == train_max_step:
                 logging.info('-' * 100)
                 logging.info('End of training')
                 break
 
-        if args.dynamic_quantization:
+        if dynamic_quant:
             dynamic_quantization_torch_from_model(model.cpu())
 
-            save_checkpoint(args, model, model_config, optimizer, scheduler,
+            save_checkpoint(conf, model, model_config, optimizer, scheduler,
                             scaler, vocab, epoch, last_batch, last_iter,
                             train_step, best_val_loss, False,
-                            args.work_dir, prefix='qnt-')
+                            expdir, prefix='qnt-')
 
     except KeyboardInterrupt:
         logging.info('-' * 100)
@@ -1302,8 +1340,23 @@ def evaluate_main(conf, model, checkpoint_path:str, test_itr, test_file_stats):
 
 def main():
 
+    parent_parser = argparse.ArgumentParser(
+        description='PyTorch Transformer-XL Language Model',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        add_help=False,
+        )
+
+    parser = argparse.ArgumentParser(parents=[parent_parser], add_help=True)
+
+    dist = parser.add_argument_group('distributed setup')
+    dist.add_argument('--local_rank',  type=int,
+                      default=os.getenv('LOCAL_RANK', 0),
+                      help='Used for multi-process training.')
+
+    args, unknown = parser.parse_known_args()
+
     # Loads config file
-    conf = create_conf('/home/caiocesart/repos/archai_last/archai/nlp/confs/experiments/train_gpt2.yaml', 'bla', False)
+    conf = create_conf(param_args=sys.argv, use_args=True)
     Config.set_inst(conf)
 
     # create experiment dir
@@ -1324,6 +1377,8 @@ def main():
     dataset_name = conf['dataset']['name']
     vocab_type = conf['dataset']['vocab']
 
+    post_qat = conf['post_processing']['qat']
+
 
     # load tokenizer and datasets
     vocab, train_itr, valid_itr, test_itr, file_stats = load_data(conf, device)
@@ -1338,15 +1393,15 @@ def main():
     model = model.to(device)
 
     # create gradient scaler
-    scaler = create_grad_scaler(args, model, optimizer)
+    scaler = create_grad_scaler(conf['common']['fp16'], model, optimizer)
 
     # enable distributed training
-    para_model, model = distributed_model(args, model, device)
+    para_model, model = distributed_model(conf, args, model, device)
 
     # create scheduler
-    scheduler, scheduler_sparse = create_scheduler(args, conf['train'], optimizer, optimizer_sparse)
+    scheduler, scheduler_sparse = create_scheduler(conf['train'], optimizer, optimizer_sparse)
 
-    training_time, best_val_loss, meters = train_main(args, conf, device, train_itr, valid_itr, model, para_model,
+    training_time, best_val_loss, meters = train_main(conf, device, train_itr, valid_itr, model, para_model,
         model_config, optimizer, optimizer_sparse, scheduler,
         scheduler_sparse, scaler, vocab, file_stats[1])
 
@@ -1411,7 +1466,7 @@ def main():
     logging.info(f'Output dir: {exp_dir}')
     dllogger.log(step=tuple(), data=summary)
 
-    if args.post_qat:
+    if post_qat:
         # Creates a dictionary of replacement configs
         replace_model_config = {
             'dropout': 0.0,
@@ -1427,23 +1482,23 @@ def main():
         para_model, model = distributed_model(args, model, device)
 
         # QAT-based arguments
-        args.restart = None
-        args.qat = True
-        args.max_step = 10000
-        args.lr = args.lr / 100
-        args.eta_min = args.eta_min / 100
-        args.eval_interval = 1000
-        args.warmup_step = 1000
-        args.optim = 'adam'
+        conf['common']['restart'] = None
+        conf['train']['qat'] = True
+        conf['train']['max_step'] = 10000
+        conf['train']['optimizer']['lr'] = conf['train']['optimizer']['lr'] / 100
+        conf['train']['lr_schedule']['eta_min'] = conf['train']['lr_schedule']['eta_min'] / 100
+        conf['eval']['interval'] = 1000
+        conf['train']['lr_schedule']['warmup_step'] = 1000
+        conf['train']['optimizer']['type'] = 'adam'
 
         # re-create optimizer
-        optimizer, optimizer_sparse = create_optimizer(args, model)
+        optimizer, optimizer_sparse = create_optimizer(conf['train']['optimizer'], model)
 
         # re-create scheduler
-        scheduler, scheduler_sparse = create_scheduler(args, optimizer, optimizer_sparse)
+        scheduler, scheduler_sparse = create_scheduler(conf['train'], optimizer, optimizer_sparse)
 
         # Performs a QAT fine-tuning
-        training_time, best_val_loss, meters = train_main(args, device, train_itr, valid_itr, model, para_model,
+        training_time, best_val_loss, meters = train_main(conf, device, train_itr, valid_itr, model, para_model,
                                                           model_config, optimizer, optimizer_sparse, scheduler,
                                                           scheduler_sparse, scaler, vocab, file_stats[1])
 

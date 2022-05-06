@@ -1,0 +1,9 @@
+__include__: './dataroot.yaml' # default dataset settings are for cifar
+
+dataset:
+  name: 'olx_WordData20220118_S36'
+  max_batches: -1 # if >= 0 then only these many batches are generated (useful for debugging)
+  cache_dir: 'cache_prefix' # Directory to store dataset cache, either absolute or relative
+  vocab: gpt2 # Type of vocabulary ('word', 'bbpe' or 'gpt2')
+  vocab_size: 10000 # Size of the vocabulary
+  data_dir: 'textpred/olx_WordData20220118_S36' # Path, relative to dataroot, where the data is located

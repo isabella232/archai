@@ -1,97 +1,40 @@
-__include__: "../datasets/olx_datasets.yaml" # default dataset settings are for cifar
+__include__: ["train_defaults.yaml", "../datasets/olx_OutlookData20210917x2.yaml"]
+
+dataset:
+  vocab: 'gpt2'
+  vocab_size: 10000
 
 common:
-  experiment_name: 'throwaway' # you should supply from command line
-  experiment_desc: 'throwaway'
-  logdir: '~/logdir' 
-  cuda: true
-  multi_gpu: null # Use multiple GPU ('ddp', 'dp')
-  fp16: false
-  log_all_ranks: false
-  txtlog_file: 'train_log.log'
-  dllog_file: 'train_log.json'
-  debug: false
-  seed: 42
-  toy: false
-  no_train: false # Only generate dataset caches, no training. Can be run on without GPU.
-  refresh_cache: false # Ignores any existing cache and overwrites it with new one
+  multi_gpu: ddp
+  seed: 1111
 
 model:
-  model_type: 'hf_gpt2_flex' # Which model architecture to use: ('hf_gpt2', 'hf_gpt2_flex', 'hf_transfo_xl', 'mem_transformer')
-  n_layer: 3 # Number of total layers
-  n_head: 8 # Number of heads
-  d_head: -1 # Head dimension
-  d_embed: -1 # Embedding dimension
-  d_model: 256 # Model dimension
-  d_inner: 1885 # Inner dimension in feedforward layer
-  dropout: 0.1 # Global dropout rate
-  dropatt: 0.0 # Attention probability dropout rate
-  pre_lnorm: false # Apply LayerNorm to the input instead of the output
-  attn_type: 0 # Attention type. 0 for ours, 1 for Shaw et al, 2 for Vaswani et al, 3 for Al Rfou et al.
-  tie_weight: true # Tie the word embedding and softmax weights
-  clamp_len: -1 # Use the same pos embeddings after clamp_len
-  adaptive: false # Use adaptive softmax
-  div_val: 1 # Dividend value for adaptive input and softmax
-  init: 'normal' # Parameter initializer to use
-  emb_init: 'normal' # Embedding initializer to use
-  init_range: 0.1 # Parameters initialized by U(-init_range, init_range)
-  emb_init_range: 0.01 # Embedding initialized by U(-init_range, init_range)
-  init_std: 0.02 # Parameters initialized by N(0, init_std)
-  proj_init_std: 0.01 # Parameters initialized by N(0, init_std)
-  primer_square: false # Use Primer EZ arch modifications (squared relu)
-  primer_conv: false # Use Primer EZ arch modifications (DConv)
-  use_cache: false # Whether to return last key/value attentions to speed decoding
-  same_length: false # Use the same attn length for all tokens
-
+  model_type: 'hf_gpt2_flex'
+  n_layer: 5
+  n_head: 8
+  d_model: 256
+  d_inner: 1885
+  dropout: 0.01
+  primer_square: true
+  adaptive: true
 
 train:
 
-  max_step: 40000 # Max number of training steps
-  batch_chunk: 1 # Split batch into chunks and train with gradient accumulation. 16GB V100 FP16 requires 1 chunk, FP32 requires 2 chunks
-  gpu0_bsz: -1 # Batch size on gpu 0 (for "dp" backend)
-  swap_mem: false # Swap memory tensors to cpu
-  mixed_qat: false
-  qat: false
-  pretrained_path: '' # Absolute or relative pretrained model path for finetuning or QAT
-
+  max_step: 100
+  batch_chunk: 1
+  
   loader:
-    batch_size: 256 # Global batch size
-    local_batch_size: null # Local (per-device) batch size, this setting overrides global --batch_size and sets batch_size to local_batch_size * world_size
-    roll: false # Enable random shifts within each data strea
-    varlen: false # Use variable sequence length
-    tgt_len: 192
+    roll: true
     mem_len: 0
-    ext_len: 0
 
-  optimizer:
-    type: 'jitlamb' # Optimizer to use ('adam', 'sgd', 'adagrad', 'lamb', 'jitlamb')
-    lr: 0.01 # Initial learning rate
-    weight_decay: 0.0 # Weight decay for adam|lamb
-    momentum: 0.0 # Momentum for sgd
-    clip: 0.25 # Gradient clipping
-    clip_nonemb: false # Only clip the gradient of non-embedding params
-    sample_softmax: -1 # Number of samples in sampled softmax
+  optimizer: 
+    type: 'adam'
+    lr: 0.001
 
   lr_schedule:
-    type: 'cosine' # LR scheduler to use ('cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine')
-    type_qat: 'cosine' # LR scheduler to use during QAT ('cosine', 'inv_sqrt', 'dev_perf', 'constant', 'cyclic_cosine')
-    max_step_scheduler: null # Max number of training steps for LR scheduler
-    warmup_step: 1000 # Number of iterations for LR warmup
-    patience: 0 # Patience for ReduceLROnPlateau
-    eta_min: 0.001 # Min learning rate for cosine scheduler
-    lr_min: 0.0 # Minimum learning rate during annealing
-    decay_rate: 0.5 # Decay factor when ReduceLROnPlateau is used
+    eta_min: 0.00001
+    warmup_step: 50
 
 eval:
-
-  interval: 5000
-  no_eval: false
-  max_steps: -1 # Max eval steps
-
-  loader:
-    batch_size: 256
-    local_batch_size: null
-    tgt_len: '_copy: /train/loader/tgt_len'
-    mem_len: '_copy: /train/loader/mem_len'
-    ext_len: '_copy: /train/loader/ext_len'
+  interval: 20
     

@@ -1,0 +1,15 @@
+__include__: "train_defaults.yaml" # default dataset settings are for cifar
+
+common:
+  multi_gpu: ddp
+
+model:
+  adaptive: true
+
+train:
+
+  batch_chunk: 16
+  
+  loader:
+    roll: true
+    
