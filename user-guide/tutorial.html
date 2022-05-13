@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>30-Minute Tutorial | Archai</title>
+<link href="../_static/pygments.css" rel="stylesheet"/>
+<link href="../_static/theme.33684ae9923d01874503.css" rel="stylesheet"/>
+<link href="../_static/css/custom.css" rel="stylesheet"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="petridish.html" rel="next" title="Petridish Walkthrough"/>
+<link href="algorithms.html" rel="prev" title="Available Algorithms"/>
+</head>
+<body class="antialiased text-gray scroll-smooth">
+<div class="h-screen xl:grid xl:grid-layout" data-action="keydown@window-&gt;search#focus" data-controller="sidebar search" id="page">
+<a class="block text-xl bg-white py-4 z-20 absolute top-0 h-14 inset-x-0 text-center transform -translate-y-full focus:translate-y-0 focus:outline-none transition-transform duration-75" href="#minute-tutorial" title="Skip navigation links">Skip to content</a>
+<header class="grid-area-header z-10 h-14">
+<div class="bg-gray-dark shadow-md flex items-center h-full xl:px-2 relative"><div class="flex items-center">
+<button class="xl:hidden h-14 w-14 leading-14 text-gray-100 hover:bg-gray-700 hover:text-brand focus:outline-none focus:bg-gray-700 focus:text-brand" data-action="sidebar#open" data-sidebar-target="hamburger">
+<span class="sr-only">Open navigation menu</span>
+<svg aria-hidden="true" class="fill-current h-8 w-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+</button><a aria-label="Back to homepage" class="hover:bg-gray-700 focus:bg-gray-700 focus:outline-none tooltipped tooltipped-sw" href="../index.html"><span class="hidden lg:inline-block shrink-0 font-medium text-gray-100 mx-5 leading-14 tracking-wider">Archai</span>
+</a></div><div class="flex justify-end items-center flex-1"><form action="../search.html" class="flex print:hidden justify-between items-center leading-14 md:ml-4 bg-gray-dark text-gray-300 focus-within:bg-gray-50 focus-within:text-gray-800 focus-within:absolute focus-within:inset-x-0 focus-within:top-0 md:focus-within:w-full md:focus-within:static" data-action="click-&gt;search#focusSearchInput" id="searchbox" method="get">
+<button aria-label="Get search results" class="text-inherit h-14 w-14" tabindex="-1">
+<svg aria-hidden="true" class="fill-current stroke-current h-8 w-8" stroke-width="0.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+</button>
+<input aria-label="Search the docs" class="pr-2 bg-transparent text-inherit focus:outline-none w-0 md:w-auto focus:w-full transition-all duration-100" data-search-target="searchInput" id="search-input" name="q" placeholder="Search the docs" type="search"/>
+</form><div class="shrink-0">
+<a aria-label="Visit repository on GitHub.com" class="tooltipped tooltipped-sw h-14 inline-block text-gray-100 leading-14 hover:text-brand focus:bg-gray-700 focus:outline-none hover:no-underline focus:text-brand pl-2 pr-4 sm:px-4" href="https://github.com/microsoft/archai"><svg fill="currentColor" style="height: 26px; margin-top: -2px;" viewbox="0 0 45 44" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M22.477.927C10.485.927.76 10.65.76 22.647c0 9.596 6.223 17.736 14.853 20.608 1.087.2 1.483-.47 1.483-1.047 0-.516-.019-1.881-.03-3.693-6.04 1.312-7.315-2.912-7.315-2.912-.988-2.51-2.412-3.178-2.412-3.178-1.972-1.346.149-1.32.149-1.32 2.18.154 3.327 2.24 3.327 2.24 1.937 3.318 5.084 2.36 6.321 1.803.197-1.403.759-2.36 1.379-2.903-4.823-.548-9.894-2.412-9.894-10.734 0-2.37.847-4.31 2.236-5.828-.224-.55-.969-2.759.214-5.748 0 0 1.822-.584 5.972 2.226 1.732-.482 3.59-.722 5.437-.732 1.845.01 3.703.25 5.437.732 4.147-2.81 5.967-2.226 5.967-2.226 1.185 2.99.44 5.198.217 5.748 1.392 1.517 2.232 3.457 2.232 5.828 0 8.344-5.078 10.18-9.916 10.717.779.67 1.474 1.996 1.474 4.021 0 2.904-.027 5.247-.027 5.96 0 .58.392 1.256 1.493 1.044C37.981 40.375 44.2 32.24 44.2 22.647c0-11.996-9.726-21.72-21.722-21.72" fill="currentColor" fill-rule="evenodd"></path></svg></a>
+<a aria-label="Visit Microsoft.com" class="tooltipped tooltipped-sw h-14 inline-block text-gray-100 leading-14 hover:text-brand focus:bg-gray-700 focus:outline-none hover:no-underline focus:text-brand pl-2 pr-4 sm:px-4" href="https://microsoft.com"><svg fill="currentColor" style="height: 26px; margin-top: -2px;" viewbox="0 0 23 23" xmlns="http://www.w3.org/2000/svg"><path d="M1 1h10v10H1z" fill="#f35325"></path><path d="M12 1h10v10H12z" fill="#81bc06"></path><path d="M1 12h10v10H1z" fill="#05a6f0"></path><path d="M12 12h10v10H12z" fill="#ffba08"></path></svg></a>
+</div></div>
+</div>
+</header>
+<aside class="grid-area-sidebar h-full fixed xl:relative inset-y-0 left-0 z-20 xl:z-0 print:hidden overflow-y-auto transition-all transform transform-gpu -translate-x-full opacity-0 duration-300 xl:translate-x-0 xl:opacity-100" data-sidebar-target="sidebar">
+<nav class="h-full overflow-y-auto bg-white text-gray-600 pt-8 flex flex-col" role="navigation">
+<div class="nav-toc flex-1 pl-6"><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html">Installation</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html#requirements">Requirements</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html#from-pypi">From PyPI</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html#from-source-code">From Source Code</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html#from-docker">From Docker</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/install.html#additional-notes">Additional Notes</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/quickstart.html">Quick Start</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/quickstart.html#toy-mode">Toy Mode</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../getting-started/features.html">Features</a></div></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html">Available Algorithms</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html#petridish">Petridish</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html#darts">DARTS</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html#random-search">Random Search</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html#xnas">XNAS</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="algorithms.html#data">DATA</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1 current expanded"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="current reference internal" data-action="click-&gt;sidebar#close" href="#">30-Minute Tutorial</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#network-architecture-search-nas">Network Architecture Search (NAS)</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#running-existing-algorithms">Running Existing Algorithms</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#config-system">Config System</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#architecture-overview">Architecture Overview</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#archai-core-classes">Archai Core Classes</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="#implementing-darts">Implementing DARTS</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#implementing-mixedop">Implementing MixedOp</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#implementing-the-modeldescbuilder">Implementing the ModelDescBuilder</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#implementing-the-trainer">Implementing the Trainer</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="#putting-it-all-togather">Putting It All Togather</a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="petridish.html">Petridish Walkthrough</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="petridish.html#background">Background</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="petridish.html#search">Search</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="petridish.html#evaluation">Evaluation</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="petridish.html#putting-it-all-together">Putting It All Together</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html">Food-101 Dataset Notes</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#transforms">Transforms</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#variation-1">Variation 1</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#variation-2">Variation 2</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#variation-3">Variation 3</a></div></li>
+</ul>
+</li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#sota">SOTA</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="food101.html#model-training-and-sota-results">Model training and SoTA results</a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="deployment.html">Deployment</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="deployment.html#azure-machine-learning">Azure Machine Learning</a></div></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/faq.html">Frequently Asked Questions</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/faq.html#what-is-neural-network-search">What is Neural Network Search?</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/contact.html">Contact</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/contact.html#team">Team</a></div></li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/copyright.html">Copyright</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/copyright.html#credits">Credits</a></div></li>
+<li class="toctree-l2"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../support/copyright.html#license">License</a></div></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api.html">API</a></div><ul>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.algos.html">archai.algos package</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.algos.html#subpackages">Subpackages</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.algos.html#module-archai.algos">Module contents</a></div></li>
+</ul>
+</li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html">archai.common package</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#submodules">Submodules</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.apex_utils">archai.common.apex_utils module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.atomic_file_handler">archai.common.atomic_file_handler module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.checkpoint">archai.common.checkpoint module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.cocob">archai.common.cocob module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.common">archai.common.common module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.config">archai.common.config module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.metrics">archai.common.metrics module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.ml_losses">archai.common.ml_losses module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.ml_utils">archai.common.ml_utils module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.model_summary">archai.common.model_summary module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.multi_optim">archai.common.multi_optim module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.ordereddict_logger">archai.common.ordereddict_logger module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.stopwatch">archai.common.stopwatch module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.tester">archai.common.tester module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.timing">archai.common.timing module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.trainer">archai.common.trainer module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.utils">archai.common.utils module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.warmup_scheduler">archai.common.warmup_scheduler module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common.yaml_utils">archai.common.yaml_utils module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.common.html#module-archai.common">Module contents</a></div></li>
+</ul>
+</li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html">archai.datasets package</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#subpackages">Subpackages</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#submodules">Submodules</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.aug_policies">archai.datasets.aug_policies module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.augmentation">archai.datasets.augmentation module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.data">archai.datasets.data module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.dataset_provider">archai.datasets.dataset_provider module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.distributed_stratified_sampler">archai.datasets.distributed_stratified_sampler module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets.limit_dataset">archai.datasets.limit_dataset module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.datasets.html#module-archai.datasets">Module contents</a></div></li>
+</ul>
+</li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html">archai.nas package</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#submodules">Submodules</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.arch_module">archai.nas.arch_module module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.arch_params">archai.nas.arch_params module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.arch_trainer">archai.nas.arch_trainer module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.cell">archai.nas.cell module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.dag_edge">archai.nas.dag_edge module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.evaluater">archai.nas.evaluater module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.exp_runner">archai.nas.exp_runner module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.finalizers">archai.nas.finalizers module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.model">archai.nas.model module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.model_desc">archai.nas.model_desc module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.model_desc_builder">archai.nas.model_desc_builder module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.nas_utils">archai.nas.nas_utils module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.operations">archai.nas.operations module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.random_finalizers">archai.nas.random_finalizers module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.search_combinations">archai.nas.search_combinations module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.searcher">archai.nas.searcher module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas.vis_model_desc">archai.nas.vis_model_desc module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.nas.html#module-archai.nas">Module contents</a></div></li>
+</ul>
+</li>
+<li class="toctree-l2"><div class="nav-link"><svg class="expand" data-action="click-&gt;sidebar#expand keydown-&gt;sidebar#expandKeyPressed" tabindex="0" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html">archai.networks package</a></div><ul>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#subpackages">Subpackages</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#submodules">Submodules</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#module-archai.networks.pyramidnet">archai.networks.pyramidnet module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#module-archai.networks.resnet">archai.networks.resnet module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#module-archai.networks.shakedrop">archai.networks.shakedrop module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#module-archai.networks.wideresnet">archai.networks.wideresnet module</a></div></li>
+<li class="toctree-l3"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/api/archai.networks.html#module-archai.networks">Module contents</a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/structure.html">Structure</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/roadmap.html">Roadmap</a></div></li>
+<li class="toctree-l1"><div class="nav-link"><a class="reference internal" data-action="click-&gt;sidebar#close" href="../reference/changelog.html">Changelog</a></div></li>
+</ul>
+</div>
+<button class="text-4xl text-gray-800 p-4 bottom-0 hover:text-brand xl:hidden focus:text-brand self-center" data-action="" title="Close navigation menu">
+<span class="sr-only">Close navigation menu</span>
+<svg aria-hidden="true" class="fill-current stroke-current h-6 w-6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</aside>
+<main class="px-4 xl:ml-fluid grid-area-main overflow-y-auto flex flex-col h-full mx-0 md:mx-auto xl:mr-0" data-action="scroll-&gt;scroll#showButton" data-controller="scroll"><nav aria-label="breadcrumbs" class="print:hidden mt-12 text-sm text-gray-light" role="navigation">
+<a class="text-gray-light text-sm hover:text-gray-dark font-medium focus:text-gray-dark" href="../index.html">Archai</a>
+<span class="mr-1">/</span><span aria-current="page">30-Minute Tutorial</span>
+</nav>
+<article class="flex-1" role="main">
+<section id="minute-tutorial">
+<h1>30-Minute Tutorial<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#minute-tutorial"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>If you would like to follow through this tutorial, please make sure you have <a class="reference internal" href="../getting-started/install.html"><span class="doc std std-doc">installed</span></a> Archai.</p>
+<section id="network-architecture-search-nas">
+<h2>Network Architecture Search (NAS)<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#network-architecture-search-nas"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Network architecture search is the process of finding best performing neural network architectures for a given problem. Usually, we have a dataset such as <a class="reference external" href="http://www.image-net.org/" rel="nofollow noopener">ImageNet<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a> and we want to figure out how to arrange operations such as convolutions and pooling to create a neural network that has the best classification accuracy. Many practical situations also require that the architecture must fit into device memory or should use only certain number of flops. NAS shines in such problems because finding optimal/near-optimal architecture requires a lot of guess work and human effort.</p>
+<p>So how do we automatically find a good neural architecture? There are a number of algorithms proposed by the NAS research community in the past few years. In this tutorial we will learn how to use existing algorithms in Archai. We will also get the overview of how Archai works and finally we will implement a popular NAS algorithm called DARTS to show how you can implement your own algorithm (often only with a few lines of code). If you are not familiar with DARTS, we recommend <a class="reference external" href="https://arxiv.org/abs/1806.09055" rel="nofollow noopener">reading the paper<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a> or <a class="reference external" href="https://towardsdatascience.com/intuitive-explanation-of-differentiable-architecture-search-darts-692bdadcc69c" rel="nofollow noopener">basic overview<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a> first and then coming back here.</p>
+</section>
+<section id="running-existing-algorithms">
+<h2>Running Existing Algorithms<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#running-existing-algorithms"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Running NAS algorithms built into Archai is easy. You can use either command line or Visual Studio Code. Using command line, run the main script specifying the <code class="docutils literal notranslate">--algos</code> switch:</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>python scripts/main.py --algos darts
+</code></pre></div></div>
+<p>Notice that the run completes within a minute or so. This is because we are using reduced dataset and epochs just to quickly see if everything is fine. We call this <em>toy mode</em>. Doing a full run can take couple of days on single V100 GPU. To do a full run, just add the <code class="docutils literal notranslate">--full</code> switch:</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>python scripts/main.py --algos darts --full
+</code></pre></div></div>
+<p>When you run these algorithms, Archai used cifar10 dataset as default. Later we will see how you can use other datasets or even bring our own custom dataset easily.</p>
+<p>By default, Archai produces output in <code class="docutils literal notranslate">~/logdir</code> directory. You should see two directories: One for search and other for evaluation often refered colloqually in docs as <code class="docutils literal notranslate">eval</code>. Evaluation in NAS means taking architecture/s that were found during the search phase and training them from scratch on the full dataset for longer and often with lots of enhancements added on. The search folder should have <code class="docutils literal notranslate">final_model_desc.yaml</code> which contains the description of network that was found by DARTS. You will find <code class="docutils literal notranslate">model.pt</code> which is trained PyTorch model generated after scaling the architecture found by search process and training it for longer. You should also see <code class="docutils literal notranslate">log.log</code> which captures the human readable logs and <code class="docutils literal notranslate">log.yaml</code> that is machine readable version of logs.</p>
+<p>You can also use other algorithms <a class="reference internal" href="algorithms.html"><span class="doc std std-doc">available</span></a> in Archai instead of DARTS. You can also run multiple algorithms by specifying them in comma separated list.</p>
+<p>We will use <a class="reference external" href="https://code.visualstudio.com/" rel="nofollow noopener">Visual Studio Code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a> in this tutorial however you can also use any other editor. Archai comes with preconfigured run configurations for VS Code. You can run DARTS in debug mode by opening the archai folder and then choosing the Run button (Ctrl+Shift+D):</p>
+<p><img alt="Run DARTS in VSCode" src="../_images/vscode_run_darts.png"/></p>
+</section>
+<section id="config-system">
+<h2>Config System<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#config-system"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Archai uses a sophisticated YAML based configuration system. As an example, you can <a class="reference external" href="https://github.com/microsoft/archai/blob/master/confs/algos/darts.yaml" rel="nofollow noopener">view configuration<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a> for running DARTS algorithm. At first it may be a bit overwhelming, but this ensures that all config parameters are isolated from the code and can be freely changed. The config for search phase is located in <code class="docutils literal notranslate">nas/search</code> section while for evaluation phase is located in <code class="docutils literal notranslate">nas/eval</code> section. You will observe settings for data loading in <code class="docutils literal notranslate">loader</code> section and training in <code class="docutils literal notranslate">trainer</code> section. You can easily change the number of epochs, batch size etc.</p>
+<p>One great thing about Archai config system is that you can override any setting specified in YAML through command line as well. For instance, if you want to run evaluation only for 200 epochs instead of default 600, specify the path of the value in YAML separated by <code class="docutils literal notranslate">.</code> like this:</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">bash</span></div>
+<div class="highlight"><pre><code>python scripts/main.py --algos darts --nas.eval.trainer.epochs <span class="m">200</span>
+</code></pre></div></div>
+<p>You can read in more detail about features available in Archai config system later.</p>
+</section>
+<section id="architecture-overview">
+<h2>Architecture Overview<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#architecture-overview"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Now that we are familiar with how to run NAS algorithms, use command line switches and configuration system, let’s briefly review how Archai works.</p>
+<p>Some of the most popular NAS methods like DARTS use what is known as a <em>proxy dataset</em>. So if you want to find network that works on ImageNet, you may use smaller dataset such as CIFAR10 (or a subset of ImageNet) for search. After you have found the network for CIFAR10, you scale it up, change model stems and train for longer epochs. This final network now can be used for ImageNet. So these type of NAS methods works in two phases: search and evaluation.</p>
+<p>Archai uses YAML based model description that can be “compiled” to PyTorch model at anytime. The advantage of using such description is that model description can easily be generated, modified, scaled and visualized. Before the search starts, Archai creates the model description that represents the super network that algorithms like DARTS can use for differentiable search. The output of the search process is again model description for the best model that was found. This output model description is than used by evaluation phase to scale it up and generate the final trained PyTorch model weights. This process is depicted in below diagram:</p>
+<p><img alt="Run DARTS in VSCode" src="../_images/archai_workflow.png"/></p>
+<p>We will now see how this workflow can be implemented in Archai.</p>
+</section>
+<section id="archai-core-classes">
+<h2>Archai Core Classes<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#archai-core-classes"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>At the heart of Archai are the following classes:</p>
+<ul class="simple">
+<li><p><strong>ExperimentRunner</strong>: This class is the entry point for running the algorithm through its <code class="docutils literal notranslate">run</code> method. It has methods to specify what to use for search and evaluation that algorithm implementer can override.</p></li>
+<li><p><strong>Searcher</strong>: This class allows to perform search by simply calling its <code class="docutils literal notranslate">search</code> method. Algorithm implementer should inherit from this class and override methods as needed.</p></li>
+<li><p><strong>Evaluater</strong>: This class allows to perform evaluation of given model by simply calling its <code class="docutils literal notranslate">evaluate</code> method. Algorithm implementer should inherit from this class and override methods as needed.</p></li>
+<li><p><strong>Model</strong>: This class is derived from PyTorch ``nn.Module` and adds additional functionality to represent architecture parameters.</p></li>
+<li><p><strong>ModelDesc</strong>: This is model description that describes the architecture of the model. It can be converted to PyTorch model using the <code class="docutils literal notranslate">Model</code> class anytime. It can be saved to YAML and loaded back. The purpose of model description is to simply allow machine readable data structure so we can easily edit this model programmatically and scale it during the evaluation process.</p></li>
+<li><p><strong>ModelDescBuilder</strong>: This class builds the <code class="docutils literal notranslate">ModelDesc</code> that can be used by <code class="docutils literal notranslate">Searcher</code> or evaluated by <code class="docutils literal notranslate">Evaluater</code>. Typically, algorithm implementer will inherit from this class to produce the model that can be used by the <code class="docutils literal notranslate">Searcher</code>.</p></li>
+<li><p><strong>ArchTrainer</strong>: This class takes in the instance of <code class="docutils literal notranslate">Model</code> and trains it using the specified configuration.</p></li>
+<li><p><strong>Finalizers</strong>: This class takes a super network with learned architecture weights and uses strategy to select edges to produce the final model.</p></li>
+<li><p><strong>Op</strong>: This class is derived from <code class="docutils literal notranslate">nn.Module</code> but has additional functionality to represent deep learning operations such as max pool or convolutions with <em>architecture weights</em>. It also can implement finalization strategy if NAS method is using super networks for searching.</p></li>
+</ul>
+</section>
+<section id="implementing-darts">
+<h2>Implementing DARTS<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#implementing-darts"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>We will now do quick walkthrough on how we can implement DARTS in Archai as an example. Note that this algorithm is already implemented so you can see the <a class="reference external" href="https://github.com/microsoft/archai/tree/master/archai/algos/darts" rel="nofollow noopener">final code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a>.</p>
+<p>At high level, we will first create the the op that combines all ops along with their architecture weights. We will call this <code class="docutils literal notranslate">MixedOp</code>. We will then use the <code class="docutils literal notranslate">MixedOp</code> to create super network with all possible edges. To train this super network, we will override <code class="docutils literal notranslate">ArchTrainer</code> and use bi-level optimizer. After the model is trained, we will use <code class="docutils literal notranslate">Finalizers</code> class to generate the final model description. Finally, we will just use default <code class="docutils literal notranslate">Evaluater</code> to evaluate the model.</p>
+<section id="implementing-mixedop">
+<h3>Implementing MixedOp<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#implementing-mixedop"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The main idea is to simply create all 7 primitives DARTS needs and override the <code class="docutils literal notranslate">forward</code> method as usual to sum the output of primitives weighted by architecture parameters.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">MixedOp</span><span class="p">(</span><span class="n">Op</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">asm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_alphas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">op</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">asm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ops</span><span class="p">))</span>
+</code></pre></div></div>
+<p>Notice that we create one architecture parameter for each primitive and they stay encapsulated within that instance of <code class="docutils literal notranslate">Op</code> class. The <code class="docutils literal notranslate">nn.Module</code> only has <code class="docutils literal notranslate">parameters()</code> method to retrieve learned weights and does not differentiate between architecture weights vs. the regular weights. The <code class="docutils literal notranslate">Op</code> class however allows us to separate these two types of parameters.</p>
+<p>Another method to focus on is <code class="docutils literal notranslate">finalize</code> which chooses top primitives by architecture weight and returns  it.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">MixedOp</span><span class="p">(</span><span class="n">Op</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OpDesc</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+        <span class="c1"># return finalized op description and its weight</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="c1"># select except 'none' op</span>
+            <span class="n">val</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_alphas</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">desc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ops</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">desc</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</code></pre></div></div>
+<p><a class="reference external" href="https://github.com/microsoft/archai/blob/master/archai/algos/darts/mixed_op.py" rel="nofollow noopener">View full code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</section>
+<section id="implementing-the-modeldescbuilder">
+<h3>Implementing the ModelDescBuilder<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#implementing-the-modeldescbuilder"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The job of <code class="docutils literal notranslate">ModelDescBuilder</code> is to build the super network that searcher can use. The <code class="docutils literal notranslate">ModelDescBuilder</code> builds the model description in parts: first model stems, then each cell and finally pooling and logits layers. Within each cell we first build cell stems, then nodes and their edges and finally a layer we will call “post op” that produces the output. Each of these steps are implemented in their own methods so you can override any portion of model building and customize according to your needs.</p>
+<p>For DARTS, we just need to build nodes with <code class="docutils literal notranslate">MixedOp</code> as edges. For this we override the <code class="docutils literal notranslate">build_nodes</code> method.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">DartsModelDescBuilder</span><span class="p">(</span><span class="n">ModelDescBuilder</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">build_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stem_shapes</span><span class="p">:</span><span class="n">TensorShapes</span><span class="p">,</span>
+                    <span class="n">conf_cell</span><span class="p">:</span><span class="n">Config</span><span class="p">,</span>
+                    <span class="n">cell_index</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">cell_type</span><span class="p">:</span><span class="n">CellType</span><span class="p">,</span>
+                    <span class="n">node_count</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span>
+                    <span class="n">in_shape</span><span class="p">:</span><span class="n">TensorShape</span><span class="p">,</span> <span class="n">out_shape</span><span class="p">:</span><span class="n">TensorShape</span><span class="p">)</span> \
+                        <span class="o">-&gt;</span><span class="n">Tuple</span><span class="p">[</span><span class="n">TensorShapes</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">NodeDesc</span><span class="p">]]:</span>
+
+        <span class="c1"># is this cell reduction</span>
+        <span class="n">reduction</span> <span class="o">=</span> <span class="p">(</span><span class="n">cell_type</span><span class="o">==</span><span class="n">CellType</span><span class="o">.</span><span class="n">Reduction</span><span class="p">)</span>
+
+        <span class="c1"># create nodes list</span>
+        <span class="n">nodes</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">NodeDesc</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[]</span>
+
+        <span class="c1"># input and output channels for each node</span>
+        <span class="n">conv_params</span> <span class="o">=</span> <span class="n">ConvMacroParams</span><span class="p">(</span><span class="n">in_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">out_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># for each noce we will create NodeDesc object</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">node_count</span><span class="p">):</span>
+            <span class="c1"># for each node we have incoming edges</span>
+            <span class="n">edges</span><span class="o">=</span><span class="p">[]</span>
+            <span class="c1"># each node connects back to all previous nodes and s0 and s1 states</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">):</span>
+                <span class="c1"># create MixedOp for each edge</span>
+                <span class="n">op_desc</span> <span class="o">=</span> <span class="n">OpDesc</span><span class="p">(</span><span class="s1">'mixed_op'</span><span class="p">,</span>
+                                    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                                        <span class="c1"># in/out channels for the edhe</span>
+                                        <span class="s1">'conv'</span><span class="p">:</span> <span class="n">conv_params</span><span class="p">,</span>
+                                        <span class="c1"># if reduction cell than use stride=2</span>
+                                        <span class="c1"># for the stems</span>
+                                        <span class="s1">'stride'</span><span class="p">:</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">reduction</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span>
+                                    <span class="p">},</span>
+                                    <span class="c1"># MixedOp only takes one input</span>
+                                    <span class="n">in_len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># Edge description specifies op and where its input(s) comes from</span>
+                <span class="n">edge</span> <span class="o">=</span> <span class="n">EdgeDesc</span><span class="p">(</span><span class="n">op_desc</span><span class="p">,</span> <span class="n">input_ids</span><span class="o">=</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+            <span class="c1"># add the node in our collection</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NodeDesc</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span> <span class="n">conv_params</span><span class="o">=</span><span class="n">conv_params</span><span class="p">))</span>
+
+        <span class="c1"># we need to return output shapes for each node which is same as input</span>
+        <span class="n">out_shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">out_shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span>  <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">node_count</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">out_shapes</span><span class="p">,</span> <span class="n">nodes</span>
+</code></pre></div></div>
+<p>Notice that the parameters of this method tell us the expected input and output shape for each node, the cell type indicating whether it’s a regular or reduction cell and so on. The core of the method simply creates the <code class="docutils literal notranslate">NodeDesc</code> instances to represent each node.</p>
+<p><a class="reference external" href="https://github.com/microsoft/archai/blob/master/archai/algos/darts/darts_model_desc_builder.py" rel="nofollow noopener">View full code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</section>
+<section id="implementing-the-trainer">
+<h3>Implementing the Trainer<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#implementing-the-trainer"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>To perform a search, DARTS uses bi-level optimization algorithm. To implement this, we need to separate regular weights from architecture weights. We then train the architecture weights using the bi-level optimizer. This can be done easily by taking advantage of <em>hooks</em> that the trainer provides. These include <code class="docutils literal notranslate">pre_fit</code> and <code class="docutils literal notranslate">post_fit</code> hooks that get executed before and after the code for the <code class="docutils literal notranslate">fit</code> method. So, in <code class="docutils literal notranslate">pre_fit</code> we can initialize our <code class="docutils literal notranslate">BilevelOptimizer</code> class.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">BilevelArchTrainer</span><span class="p">(</span><span class="n">ArchTrainer</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">pre_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_loaders</span><span class="p">:</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoaders</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">pre_fit</span><span class="p">(</span><span class="n">data_loaders</span><span class="p">)</span>
+
+        <span class="c1"># get config params for bi-level optimizer</span>
+        <span class="n">w_momentum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf_w_optim</span><span class="p">[</span><span class="s1">'momentum'</span><span class="p">]</span>
+        <span class="n">w_decay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf_w_optim</span><span class="p">[</span><span class="s1">'decay'</span><span class="p">]</span>
+        <span class="n">lossfn</span> <span class="o">=</span> <span class="n">ml_utils</span><span class="o">.</span><span class="n">get_lossfn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_conf_w_lossfn</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_device</span><span class="p">())</span>
+
+        <span class="c1"># create bi-level optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bilevel_optim</span> <span class="o">=</span> <span class="n">BilevelOptimizer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_conf_alpha_optim</span><span class="p">,</span>
+                                                <span class="n">w_momentum</span><span class="p">,</span>
+                                                <span class="n">w_decay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">lossfn</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Then we use <code class="docutils literal notranslate">pre_step</code> hook to run a step on <code class="docutils literal notranslate">BilevelOptimizer</code>.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">BilevelArchTrainer</span><span class="p">(</span><span class="n">ArchTrainer</span><span class="p">):</span>
+   <span class="o">...</span>
+   <span class="k">def</span> <span class="nf">pre_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+       <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">pre_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+       <span class="c1"># get the validation dataset for bi-level optimizer</span>
+       <span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_valid_iter</span><span class="p">)</span>
+
+       <span class="c1"># get regular optimizer</span>
+       <span class="n">optimizer</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_optimizer</span><span class="p">()</span>
+
+       <span class="c1"># update alphas</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">_bilevel_optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">)</span>
+</code></pre></div></div>
+<p><a class="reference external" href="https://github.com/microsoft/archai/blob/master/archai/algos/darts/bilevel_arch_trainer.py" rel="nofollow noopener">View full code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</section>
+<section id="putting-it-all-togather">
+<h3>Putting It All Togather<a aria-label="Click to copy this link" class="headerlink tooltipped tooltipped-ne" data-action="click-&gt;clipboard#copyHeaderLink" data-controller="clipboard" href="#putting-it-all-togather"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Now that we have our own <code class="docutils literal notranslate">Trainer</code> and <code class="docutils literal notranslate">ModelDescBuilder</code> for DARTS, we need to tell Archai about them. This is done through a class derived from <code class="docutils literal notranslate">ExperimentRunner</code>. We override <code class="docutils literal notranslate">model_desc_builder()</code> and <code class="docutils literal notranslate">trainer_class()</code> to specify our custom classes.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">class</span> <span class="nc">DartsExperimentRunner</span><span class="p">(</span><span class="n">ExperimentRunner</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">model_desc_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">DartsModelDescBuilder</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DartsModelDescBuilder</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">trainer_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">TArchTrainer</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BilevelArchTrainer</span>
+</code></pre></div></div>
+<p><a class="reference external" href="https://github.com/microsoft/archai/blob/master/archai/algos/darts/darts_exp_runner.py" rel="nofollow noopener">View full code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+<p>Finally, add our algorithm name and <code class="docutils literal notranslate">DartsExperimentRunner</code> in <code class="docutils literal notranslate">main.py</code> so it gets used when <code class="docutils literal notranslate">darts</code> is specified in <code class="docutils literal notranslate">--algos</code> switch.</p>
+<div class="code-wrapper" data-controller="code">
+<div class="code-header">
+<span class="code-lang">python</span></div>
+<div class="highlight"><pre><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="o">...</span>
+    <span class="n">runner_types</span><span class="p">:</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">ExperimentRunner</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'darts'</span><span class="p">:</span> <span class="n">DartsExperimentRunner</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p><a class="reference external" href="https://github.com/microsoft/archai/blob/master/scripts/main.py" rel="nofollow noopener">View full code<svg aria-hidden="true" class="external-link-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg></a></p>
+</section>
+</section>
+</section>
+</article>
+<footer>
+<div class="mt-20 mb-4 text-sm text-gray-700">© 2022, Microsoft. Last updated: May 13, 2022. Made with <a href="https://www.sphinx-doc.org">Sphinx 4.5.0</a></div>
+</footer><button aria-label="Scroll to top" class="fixed bottom-0 right-0 p-2 m-4 z-10 rounded-full bg-gray-700 text-white opacity-0 transition-opacity duration-1000 pointer-events-none hover:bg-gray-300 hover:text-link focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-gray-200 focus:text-link tooltipped tooltipped-nw" data-action="scroll#scrollToTop" data-scroll-target="scrollToTop">
+<svg class="fill-current stroke-current h-8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+</svg>
+</button></main>
+<button class="fixed bottom-0 right-0 z-20 opacity-0 p-4 m-4 tracking-wide bg-gray-900 text-gray-100 transition transform transform-gpu duration-500 translate-y-full" data-action="search#hideSnackbar" data-search-target="snackbar">
+  Clear highlights
+</button><div class="fixed hidden inset-0 bg-black bg-opacity-50" data-action="click-&gt;sidebar#close" data-sidebar-target="screen">
+</div>
+</div>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script>
+<script src="../_static/underscore.js"></script>
+<script src="../_static/doctools.js"></script>
+<script src="../_static/theme.1ba02c30758e6036ba31.js"></script>
+</body>
+</html>
