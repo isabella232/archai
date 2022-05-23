@@ -8,10 +8,10 @@ from typing import Any, Dict
 
 from onnxruntime.transformers.onnx_model_bert import BertOnnxModel as HfBERTOnnxModel
 
-from archai.nlp.models.config_base import OnnxConfig
+from archai.nlp.models.config_base import OnnxConfigWithPast
 
 
-class HfBERTOnnxConfig(OnnxConfig):
+class HfBERTOnnxConfig(OnnxConfigWithPast):
     """Huggingface's BERT ONNX-based configuration.
 
     """
@@ -25,4 +25,4 @@ class HfBERTOnnxConfig(OnnxConfig):
 
         """
 
-        super().__init__(model_config, model_type='bert')
+        super().__init__(model_config, model_type='bert', past_key_values=2)

@@ -4,7 +4,7 @@
 """Huggingface's BERT configurations.
 """
 
-from typing import List, Optional, Union
+from typing import Optional
 
 from archai.nlp.models.config_base import Config, SearchConfigParameter, SearchConfig
 from transformers import CONFIG_MAPPING
@@ -17,27 +17,27 @@ class HfBERTConfig(Config):
 
     attribute_map = {
         'n_token': 'vocab_size',
-        'tgt_len': 'n_positions',
-        'd_model': 'n_embd',
-        'd_inner': 'n_inner',
-        'dropout': 'resid_pdrop',
-        'dropatt': 'attn_pdrop',
+        'tgt_len': 'max_position_embeddings',
+        'n_layer': 'num_hidden_layers',
+        'n_head': 'num_attention_heads',
+        'd_model': 'hidden_size',
+        'd_inner': 'intermediate_size',
+        'dropout': 'hidden_dropout_prob',
+        'dropatt': 'attention_probs_dropout_prob',
         'weight_init_std': 'initializer_range'
     }
     attribute_map.update(CONFIG_MAPPING['bert']().attribute_map)
 
     def __init__(self,
-                 n_token: Optional[int] = 10000, # changed from 50257 for model's production
-                 tgt_len: Optional[int] = 192,
-                 d_model: Optional[int] = 512,
-                 d_inner: Optional[int] = 2048,
+                 n_token: Optional[int] = 30522,
+                 tgt_len: Optional[int] = 512,
+                 d_model: Optional[int] = 768,
+                 d_inner: Optional[int] = 3072,
                  dropout: Optional[float] = 0.1,
-                 dropatt: Optional[float] = 0.0,
+                 dropatt: Optional[float] = 0.1,
                  weight_init_std: Optional[float] = 0.02,
-                 n_layer: Optional[int] = 16,
-                 n_head: Optional[int] = 8,
-                 embd_pdrop: Optional[float] = 0.0,
-                 tie_weight: Optional[bool] = True,
+                 n_layer: Optional[int] = 12,
+                 n_head: Optional[int] = 12,
                  **kwargs) -> None:
         """Initializes the class by overriding default arguments.
 
@@ -51,8 +51,6 @@ class HfBERTConfig(Config):
             weight_init_std: Standard deviation to initialize the weights.
             n_layer: Number of layers.
             n_head: Number of attention heads.
-            embd_pdrop: Dropout probability of embedding layer.
-            tie_weight: Whether embedding and softmax weights should be tied.
 
         """
 
@@ -66,10 +64,8 @@ class HfBERTConfig(Config):
         self.n_layer = n_layer
         self.n_head = n_head
         self.d_head = d_model // n_head
-        self.embd_pdrop = embd_pdrop
-        self.tie_weight = tie_weight
 
-        additional_config = CONFIG_MAPPING['gpt2']().to_dict()
+        additional_config = CONFIG_MAPPING['bert']().to_dict()
         for key, value in additional_config.items():
             if key not in self.__dict__.keys():
                 setattr(self, key, value)

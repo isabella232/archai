@@ -29,24 +29,20 @@ class HfBERT(ArchaiModel):
         self.config = HfBERTConfig(**kwargs)
         self.model = BertForPreTraining(self.config)
 
-        if self.config.tie_weight:
-            self.model.tie_weights()
-
     def forward(self,
                 input_ids: torch.Tensor,
                 labels: Optional[torch.Tensor] = None,
-                mems: Optional[torch.Tensor] = None,
+                token_type_ids: Optional[torch.Tensor] = None,
+                next_sentence_label: Optional[torch.Tensor] = None,
                 past_key_values: Optional[torch.Tensor] = None,
                 output_loss: Optional[bool] = True,
                 output_prediction_scores: Optional[bool] = False
                 ) -> Tuple[torch.Tensor, ...]:
-        assert mems is None, 'HfBERT does not support memory (mems).'
 
-        # Labels are the same as input_ids because they will be shifted inside the model
-        # Causal attention mask is also created inside the model
         outputs = self.model(input_ids=input_ids,
-                             labels=input_ids,
-                             attention_mask=torch.ones_like(input_ids),
+                             labels=labels,
+                             token_type_ids=token_type_ids,
+                             next_sentence_label=next_sentence_label,
                              past_key_values=past_key_values)
 
         if output_loss:
@@ -54,7 +50,10 @@ class HfBERT(ArchaiModel):
         
         if output_prediction_scores:
             # BERT only outputs the logits, so they need to be converted with log_softmax
-            return (None, F.log_softmax(outputs.logits, dim=-1), None, outputs.past_key_values)
+            return (None,
+                    F.log_softmax(outputs.prediction_logits, dim=-1),
+                    F.log_softmax(outputs.seq_relationship_logits, dim=-1),
+                    outputs.past_key_values)
 
     def get_params(self) -> Dict[str, int]:
         params = {}
