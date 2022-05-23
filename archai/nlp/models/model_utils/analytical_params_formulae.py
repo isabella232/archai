@@ -24,6 +24,21 @@ def _get_hyperparams(model_config: Dict[str, Any]) -> Tuple[int, int, int, List[
     return n_token, tgt_len, d_model, d_embed, d_inner, n_head, d_head
 
 
+def get_params_hf_bert_formula(model_config: Dict[str, Any]) -> Dict[str, Any]:
+    n_token, tgt_len, d_model, _, d_inner, n_head, d_head = _get_hyperparams(model_config)
+
+    params = {
+        'embedding': 0,
+        'attention': 0,
+        'ff': 0,
+        'layer_norm': 0,
+        'non_embedding': 0,
+        'total': 0
+    }
+
+    return params
+
+
 def get_params_hf_gpt2_formula(model_config: Dict[str, Any]) -> Dict[str, Any]:
     n_token, tgt_len, d_model, _, d_inner, n_head, d_head = _get_hyperparams(model_config)
 
