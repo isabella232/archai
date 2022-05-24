@@ -13,7 +13,7 @@ if __name__ == '__main__':
             "token_type_ids",
             "position_ids",
         ],
-        model_max_length=192,
+        model_max_length=512,
     )
 
     # Loads and prepares the dataset
@@ -22,7 +22,6 @@ if __name__ == '__main__':
         "wikitext",
         "wikitext-103-raw-v1",
         next_sentence_prediction=True,
-        n_samples=100,
     )
 
     # Creates the masked language modeling collator
@@ -44,10 +43,11 @@ if __name__ == '__main__':
     training_args = TrainingArguments(
         "wikitext_bert_pretrain",
         evaluation_strategy="steps",
-        per_device_train_batch_size=8,
-        learning_rate=5e-5,
+        per_device_train_batch_size=32,
+        gradient_accumulation_steps=2,
+        learning_rate=1e-4,
         weight_decay=0.01,
-        max_steps=1,
+        max_steps=40000,
     )
     trainer = Trainer(
         model=model,
