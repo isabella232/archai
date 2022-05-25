@@ -34,9 +34,48 @@ def test_checkpoint_class_init():
     os.remove(CONFIG_FILEPATH)
 
 
-def test_checkpoint_class_load_existing():
+def test_checkpoint_class_load_existing_false():
     checkpoint = _create_checkpoint_class()
 
-    checkpoint.load_existing()
+    assert checkpoint.load_existing() is False
+
+    os.remove(CONFIG_FILEPATH)
+
+
+def test_checkpoint_class_load_existing_true():
+    checkpoint = _create_checkpoint_class()
+
+    checkpoint["dummy"] = "dummy"
+    checkpoint.commit()
+    checkpoint.clear()
+
+    assert checkpoint.load_existing() is True
+
+    os.remove(CONFIG_FILEPATH)
+    os.remove(CHECKPOINT_FILENAME)
+
+
+def test_checkpoint_class_new():
+    checkpoint = _create_checkpoint_class()
+
+    checkpoint.new()
+
+    os.remove(CONFIG_FILEPATH)
+
+
+def test_checkpoint_class_commit():
+    checkpoint = _create_checkpoint_class()
+    checkpoint["dummy"] = "dummy"
+
+    checkpoint.commit()
+
+    os.remove(CONFIG_FILEPATH)
+    os.remove(CHECKPOINT_FILENAME)
+
+
+def test_checkpoint_class_is_empty():
+    checkpoint = _create_checkpoint_class()
+
+    assert checkpoint.is_empty() is True
 
     os.remove(CONFIG_FILEPATH)

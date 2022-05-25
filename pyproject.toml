@@ -2,4 +2,4 @@
 # Licensed under the MIT license.
 
 [tool.pytest.ini_options]
-filterwarnings = ["ignore::DeprecationWarning:torchvision.*"]
+filterwarnings = ["ignore::DeprecationWarning:torchvision.*", "ignore::DeprecationWarning:pyreadline.*"]

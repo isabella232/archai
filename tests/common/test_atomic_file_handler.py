@@ -18,7 +18,6 @@ def test_atomic_file_handler_class_init():
 
     assert isinstance(atomic_file_handler._buffer, list)
     assert atomic_file_handler._last_flush == 0.0
-
     assert os.path.basename(atomic_file_handler.baseFilename) == FILENAME
     assert atomic_file_handler.encoding is ENCODING
     assert atomic_file_handler.save_delay == SAVE_DELAY
