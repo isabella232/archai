@@ -7,3 +7,5 @@ class SpecialTokenEnum(Enum):
     EOS=2
     PAD=3
     MASK=4
+    CLS=5
+    SEP=6
