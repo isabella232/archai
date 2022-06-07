@@ -3,7 +3,6 @@ import logging
 from collections import Counter
 from collections import OrderedDict
 from typing import List, Optional
-import pathlib
 
 import torch
 
@@ -18,11 +17,13 @@ from archai.nlp.datasets.tokenizer_utils.special_token_enum import SpecialTokenE
 class WordVocab(VocabBase): # Word vocab is the default
     def __init__(self, save_path:str, min_freq=0, vocab_size=None,
                  bos_token:Optional[str]=None, eos_token:Optional[str]='<eos>',
-                 unk_token:Optional[str]='<unk>', lower_case=False,
-                 delimiter=None, encode_special_tokens=True, decode_special_tokens=True):
+                 unk_token:Optional[str]='<unk>', pad_token:Optional[str]=None,
+                 mask_token:Optional[str]=None, cls_token:Optional[str]=None, sep_token:Optional[str]=None,
+                 lower_case=False, delimiter=None, encode_special_tokens=True, decode_special_tokens=True):
         self.counter = Counter()
         self._config = TokenConfig(bos_token=bos_token, eos_token=eos_token,
-                                   unk_token=unk_token, pad_token=None,
+                                   unk_token=unk_token, pad_token=pad_token,
+                                   mask_token=mask_token, cls_token=cls_token, sep_token=sep_token,
                                    # no prefix space or line needed as we delimit on white space unlike in bbpe
                                    add_prefix_space=False, add_prefix_new_line=False,
                                    lower_case=lower_case)
@@ -30,6 +31,9 @@ class WordVocab(VocabBase): # Word vocab is the default
         assert self._config.unk_token, "unk token must be supplied for WordVocab"
         self._bos = [self._config.bos_token] if self._config.bos_token else []
         self._eos = [self._config.eos_token] if self._config.eos_token else []
+        self._mask = [self._config.mask_token] if self._config.mask_token else []
+        self._cls = [self._config.cls_token] if self._config.cls_token else []
+        self._sep = [self._config.sep_token] if self._config.sep_token else []
 
         self.encode_special_tokens = encode_special_tokens
         self.decode_special_tokens = decode_special_tokens
